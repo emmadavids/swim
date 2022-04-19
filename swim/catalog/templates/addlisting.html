@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>swim database</h1>
+  <p>Welcome to swimSpot a website developed by <em>Emma</em>!</p>
+<p>
+  If you swim in open water somewhere not listed here, why not add it to the database?
+  In the description, please think about whether the location is suitable for distance/triathlon training or more just for paddling or a cooling dip.
+  If the toilets/cafe are a short walk away or not in an obvious location, please add this to the description. </p>
+  <div class="container">
+    <form method="post" novalidate>
+        {% csrf_token %}
+    
+        {{ form }}
+       
+        <button type="submit">Submit</button>
+      </form>
+    
+      </div>
+{% endblock %}

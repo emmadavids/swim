@@ -1,0 +1,51 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<script src="https://kit.fontawesome.com/6b1e3df50c.js" crossorigin="anonymous"></script>
+  <h1>swim database</h1>
+  <p>Welcome to swimSpot a website developed by <em>Emma</em>!</p>
+  <div class="container">
+    {% for i in swims %}
+<h4>{{i.1}}</h4>
+<p>{{i.2}}</p>
+<br><b>Toilets:</b> {% if i.3 %} Yes {% else %} No {% endif %}
+<br><b>Cafe:</b> {% if i.4%} Yes {% else %} No {% endif %}
+<br><b>Bathing Quality:</b> {{i.5}}<br><br>
+<p style="color: rgb(195, 195, 211); font-size: 12px;">
+Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
+<div class="row pb-5">
+  <div class="col-md-8">
+
+    {% for i in photo %}
+     {% for j in i %}
+     
+
+    <img src="../../{{j}}" alt="" width="100%" />
+  </div>
+
+  <div class="col-md-4">
+    {% endfor %}
+    {% endfor %}
+ 
+    <a href="{% url 'addphoto' i.0 %}"><b>Upload a photo of this swimspot</b></a>
+{% if user.is_authenticated %}<br><br><i class="fa-solid fa-heart-circle-plus"></i><p style="color:coral"><a href="{% url 'save_swim' i.0 %}">Save this swim</a> </p><br><br>
+<br><h3><b>Have you been swimming here? What did you think? </b></h3>
+<form method="POST" action="{% url 'comment' i.0 %}">
+    {% csrf_token %}
+    <textarea class="form-control" rows="3" name="comment" placeholder="Write your comment here..." required></textarea>
+    <button type="submit">Submit</button>
+   
+  </form>
+  <br><br>
+  {% endif %}
+  <div style="padding-bottom: 150px;">
+  
+    {% for i in comments %}
+    
+    <li style="list-style-type:none;"><h3>{{i.0}}</h3> posted this comment on {{i.3}}:<br>{{ i.1 }} </a> </li>
+  
+    {% endfor %}
+  </div>
+{% endfor %}
+{% endblock %}

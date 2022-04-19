@@ -1,0 +1,31 @@
+from django.conf import settings
+
+# Create your models here.
+# 
+# class User(AbstractUser):
+#     pass
+# def __str__(self):
+#         return f"{self.id}"
+
+#the above user model was copied and pasted from cs50 project and might not work
+
+class SwimSpot(models.Model):
+    name = models.CharField(max_length=100, default='name')
+    # added_by = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    description = models.CharField(max_length=1440, default='', null=True, blank=True)
+    #location- code this later
+    #water temperature - https://dev.to/yahaya_hk/how-to-populate-your-database-with-data-from-an-external-api-in-django-398i
+    #User rating?????
+    #water quality
+    def __str__(self):
+        return f"{self.name} : {self.description}"  
+
+class SavedSwims(models.Model):
+    user = models.CharField(max_length=25, default="string", null=True, blank=True)
+    swim_id = models.CharField(max_length=100, default="swim_id")
+    def __str__(self):
+        return f"{self.user} | {self.}"    
+
+
+#Remember to register new models 
+
