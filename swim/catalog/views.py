@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
-from .models import SwimSpot, SavedSwims, Comment, User, SwimForm, Photo, PhotoForm
+import json 
+from .models import SwimSpot, SavedSwims, Comment, User, SwimForm, Photo, PhotoForm, Location
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -113,6 +114,14 @@ def search(request):
     return render(request, "search.html", {
        
     })
+
+def view_on_map(request):
+    location_list = list(Location.objects.order_by('name').values()) 
+    location_json = json.dumps(location_list)  
+    print(location_json)
+    context = {'locations': location_json} 
+    return render(request, 'mapview.html', context) 
+
 
 
 @login_required()

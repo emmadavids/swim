@@ -21,7 +21,7 @@
       {% block sidebar %}
         <ul class="sidebar-nav">
           <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search Swims</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'map' %}">View on Map</a></li>
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'add' %}">Add a Swim</a>

@@ -15,8 +15,6 @@ class User(AbstractUser):
 class SwimSpot(models.Model):
     name = models.CharField(max_length=100, default='name')
     description = models.CharField(max_length=1440, default='', null=True, blank=True)
-    #photo = https://www.sitepoint.com/django-photo-sharing-app/ - photo CRUD tutorial can have one to one relationship with photo model 
-    #location- code this later
     water_quality = models.CharField(max_length=100, default='', null=True, blank=True)
     #User rating?????
     toilets = models.BooleanField(default=False)
@@ -25,7 +23,7 @@ class SwimSpot(models.Model):
     #suitable for distance training? 
     is_approved = models.BooleanField(default=False) #admin can approve 
     wq_id = models.CharField(max_length=100, default='', null=True, blank=True)
- 
+
     def __str__(self):
         return f"{self.name} : {self.description}"  
 
@@ -45,7 +43,11 @@ class SavedSwims(models.Model):
 
 class Comment(models.Model):
     user = models.CharField(max_length=25, default="string", null=True, blank=True)
-    swim_id = models.CharField(max_length=100, default='0')
+    swim_id = models.ForeignKey(
+        SwimSpot,
+        default=1,
+        on_delete=models.CASCADE
+    ) 
     date_added = models.DateTimeField(max_length=64, default=datetime.now(timezone.utc))
     comment = models.CharField(max_length=500)
     def __str__(self):
@@ -57,17 +59,11 @@ class CommentForm(ModelForm):
         fields = ['comment']
 
 class Photo(models.Model):
-
-    swim_id = models.CharField(max_length=100, default='0')
-
+    swim_id = models.CharField(max_length=100, default="swim_id")
     title = models.CharField(max_length=45)
-
     description = models.CharField(max_length=250) 
-
     created = models.DateTimeField(auto_now_add=True)
-
     image = models.ImageField(upload_to='photos/')
-
     submitter = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
 
@@ -91,6 +87,15 @@ class PhotoForm(ModelForm):
             )
         )   
 
-class Location(models.Model)
+class Location(models.Model):
+   name = models.CharField(max_length=250) 
+   address = models.TextField() 
+   latitude = models.FloatField() 
+   longitude = models.FloatField() 
+   swimspot  = models.OneToOneField(
+        SwimSpot,
+        default=1,
+        on_delete=models.CASCADE
+    ) 
 
 #Remember to register new models to admin

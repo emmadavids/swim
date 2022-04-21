@@ -16,6 +16,7 @@ urlpatterns = [
  path("search", views.search, name="search"),
  path('success', views.success, name = 'success'),
  path('addphoto/<int:id>/', views.add_photo, name='addphoto'),
+ path('map', views.view_on_map, name='map'),
 #  path('photo/<int:pk>/delete/', PhotoDeleteView.as_view(), name='delete'),
 ]
 
