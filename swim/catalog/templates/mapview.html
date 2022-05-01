@@ -36,13 +36,15 @@
  
        for (let storeLocation of storeLocations) { 
            let coordinates = [storeLocation.longitude, storeLocation.latitude]; 
+           console.log("the coordinates" + coordinates)
             bounds.push(coordinates); 
-            const id = storeLocation.swimspot_id
+            console.log("this is bounds: " + bounds)
+            const id = storeLocation['swimspot_id']
             const name = storeLocation.name
            // create popup to display store information when the marker is clicked 
            let popup = new tt.Popup().setHTML(` 
                <div class="locator-popup"> 
-                <a href="{% url 'get' ${id} %}" class="btn btn-primary">{{ name }} </a> <br> 
+                <a href="../catalog/${id}/" class="btn btn-primary"> ${name} </a> <br> 
                 <h6>Address</h6> 
                 <p>${storeLocation.address}</p> 
                </div> 

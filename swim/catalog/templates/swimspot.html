@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<script src="https://kit.fontawesome.com/6b1e3df50c.js" crossorigin="anonymous"></script>
+
   <h1>swim database</h1>
   <p>Welcome to swimSpot a website developed by <em>Emma</em>!</p>
   <div class="container">
@@ -21,7 +21,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
      {% for j in i %}
      
 
-    <img src="../../{{j}}" alt="" width="100%" />
+    <img src="../../{{j}}" alt="" height="70%" width="6%" />
   </div>
 
   <div class="col-md-4">
@@ -30,6 +30,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
  
     <a href="{% url 'addphoto' i.0 %}"><b>Upload a photo of this swimspot</b></a>
 {% if user.is_authenticated %}<br><br><i class="fa-solid fa-heart-circle-plus"></i><p style="color:coral"><a href="{% url 'save_swim' i.0 %}">Save this swim</a> </p><br><br>
+
 <br><h3><b>Have you been swimming here? What did you think? </b></h3>
 <form method="POST" action="{% url 'comment' i.0 %}">
     {% csrf_token %}
@@ -46,6 +47,41 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
     <li style="list-style-type:none;"><h3>{{i.0}}</h3> posted this comment on {{i.3}}:<br>{{ i.1 }} </a> </li>
   
     {% endfor %}
+    {% endfor %}
   </div>
-{% endfor %}
+
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 150px; right:-100px; height: 50%; width: 50%; }
+</style>
+
+<div id="map"></div>
+ 
+<script>
+  let swimLocation = JSON.parse("{{ locations|escapejs }}"); 
+    let lng = swimLocation[0].longitude;
+      let lt =  swimLocation[0].latitude; 
+        let lat = parseFloat(lt);
+          let long = parseFloat(lng);
+mapboxgl.accessToken = 'pk.eyJ1IjoiZW1tYWRhdmlkcyIsImEiOiJjbDJlcW1sOWIwMGdhM2VyenAwZmtobTV6In0.xN9yyL4whJVANZa1Vmxr1A';
+const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [long, lat],
+zoom: 8
+});
+
+// Create a default Marker and add it to the map.
+const marker1 = new mapboxgl.Marker()
+.setLngLat([long, lat])
+.addTo(map);
+ 
+</script>
+  
+  
+      
+
 {% endblock %}

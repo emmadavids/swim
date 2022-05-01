@@ -1,0 +1,26 @@
+
+
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>swim database</h1>
+  <p>Welcome to swimSpot a website developed by <em>Emma</em>!</p>
+  <div class="container">
+
+    <h3>{{prof.user.username}}'s profile</h3>
+    <img src="../../{{prof.image}}" alt="" height="45%" width="55%" />
+
+    <br><strong>
+    notable events completed: </strong><br>
+    {{ prof.events_completed }}    
+    <br><strong>
+    i am currently training for: </strong><br>
+     {{prof.training_for}}   
+    <br><strong>
+    other relevent (or irrelevent) blurb: </strong><br>
+    {{prof.blurb}}
+      </div>
+      <br><br>
+      Edit profile
+{% endblock %}  

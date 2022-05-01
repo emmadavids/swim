@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 import json 
-from .models import SwimSpot, SavedSwims, Comment, User, SwimForm, Photo, PhotoForm, Location
+from .models import SwimSpot, SavedSwims, Comment, User, SwimForm, Photo, PhotoForm, Location, FilterForm, UserProfile
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -10,14 +10,45 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 def index(request):
-    swimspots = SwimSpot.objects.all().order_by('id') #gets all swimspots 
+    form = ""
+    if request.method == 'POST':
+        f = FilterForm(request.POST)
+        filter_parameters = {}
+        if f.is_valid():
+            for item in ['distance_suitable', 'cafe', 'toilets']:
+                if f.cleaned_data.get(item) is True:
+                    filter_parameters[item] = True
+            print('params')
+            print(filter_parameters)
+            swimspots = SwimSpot.objects.filter(**filter_parameters)
+            form = None          
+    else:
+        form = FilterForm()
+        swimspots = SwimSpot.objects.all().order_by('id') #gets all swimspots 
+    vals = swimspots.values_list('id', 'name', 'is_approved')
+    paginator = Paginator(vals, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)    
     return render(request, "index.html", {
         "swimspots": swimspots,
+        "form": form,
+        "page_obj": page_obj
     })
 
+
+def pages(request):
+    posts = SwimSpot.objects.all()
+    paginator = Paginator(posts, 3)
+    page_obj = paginator.get_page(1)
+    page_number = request.GET.get('page', 1)
+    pge = paginator.get_page(page_number)
+    return render(request, 'index.html', {
+        'page_obj': page_obj,
+    })
 
 @csrf_protect
 def login_view(request):
@@ -71,7 +102,7 @@ def register(request):
     else:
         return render(request, "register.html")
 
-    
+
 def update_water_quality(request, wqid):
     url = 'https://environment.data.gov.uk/doc/bathing-water/{0}.json'.format(wqid)
     response = requests.get(url)
@@ -101,19 +132,28 @@ def get_swim_spot(request, id):
     comments = commentos.values_list('user', 'comment', 'id', 'date_added')
     phot = Photo.objects.filter(swim_id=id)
     photo = phot.values_list('image')
-    return render(request, "swimspot.html", {
+    location = list(Location.objects.filter(swimspot=id).order_by('name').values())
+    location_json = json.dumps(location)
+    print(location_json)
+    context = {
         "photo": photo,
         "swims": swims,
-        "comments": comments
-    })    
+        "comments": comments,
+        "locations": location_json
+    }
+    return render(request, "swimspot.html", context)    
+ 
 
 
 def search(request):
-    # swimmo = SavedSwims.objects.filter(user=request.user.id)
-    # saved_swims = swimmo.values_list('user', 'swim_id')
-    return render(request, "search.html", {
-       
-    })
+    """ search function  """
+    if request.method == "POST":
+        query_name = request.POST.get('name', None)
+        if query_name:
+            results = SwimSpot.objects.filter(name__contains=query_name)
+            return render(request, 'search.html', {"results":results})
+
+    return render(request, 'search.html')
 
 def view_on_map(request):
     location_list = list(Location.objects.order_by('name').values()) 
@@ -121,7 +161,6 @@ def view_on_map(request):
     print(location_json)
     context = {'locations': location_json} 
     return render(request, 'mapview.html', context) 
-
 
 
 @login_required()
@@ -170,7 +209,7 @@ def comment(request, id):
         commentie = Comment()
         commentie.comment = request.POST.get('comment')
         commentie.user = request.user.username
-        commentie.swim_id = int(this.id)
+        commentie.swim_id = this.id
         print("fdhjfd: ", commentie.swim_id)
         commentie.save()
         return redirect('get', id=id)
@@ -201,3 +240,10 @@ def success(request):
     return HttpResponse('successfully uploaded')
 
 
+def get_profile(request, id):
+    prof = UserProfile.objects.get(user_id=id)
+    print("this is prof", prof)
+    return render(request, 'profilepage.html', {'prof': prof})
+
+def edit_profile(request, id):
+    

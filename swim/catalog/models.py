@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.forms import ModelForm
@@ -20,13 +21,20 @@ class SwimSpot(models.Model):
     toilets = models.BooleanField(default=False)
     cafe = models.BooleanField(default=False)
     #fresh or sea water? 
-    #suitable for distance training? 
+    distance_suitable = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False) #admin can approve 
     wq_id = models.CharField(max_length=100, default='', null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} : {self.description}"  
 
+class FilterForm(forms.ModelForm):
+    distance_suitable = forms.BooleanField(required=False)
+    toilets = forms.BooleanField(required=False)
+    cafe = forms.BooleanField(required=False)
+    class Meta:
+        model = SwimSpot
+        fields = ['distance_suitable', 'toilets', 'cafe']
 
 class SwimForm(ModelForm):
     class Meta:
@@ -42,14 +50,19 @@ class SavedSwims(models.Model):
 
 
 class Comment(models.Model):
-    user = models.CharField(max_length=25, default="string", null=True, blank=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        default=5,
+        primary_key=True,
+    )
+    date_added = models.DateTimeField(max_length=64, default=datetime.now(timezone.utc))
+    comment = models.CharField(max_length=500)
     swim_id = models.ForeignKey(
         SwimSpot,
         default=1,
         on_delete=models.CASCADE
     ) 
-    date_added = models.DateTimeField(max_length=64, default=datetime.now(timezone.utc))
-    comment = models.CharField(max_length=500)
     def __str__(self):
         return f"{self.user} : {self.comment}"        
 
@@ -85,7 +98,7 @@ class PhotoForm(ModelForm):
                 'description',
                 'image',
             )
-        )   
+        )         
 
 class Location(models.Model):
    name = models.CharField(max_length=250) 
@@ -98,4 +111,14 @@ class Location(models.Model):
         on_delete=models.CASCADE
     ) 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    events_completed = models.CharField(max_length=500) 
+    training_for = models.CharField(max_length=500) 
+    blurb = models.CharField(max_length=500) 
+    image = models.ImageField(upload_to='photos/')
 #Remember to register new models to admin

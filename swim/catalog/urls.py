@@ -15,8 +15,11 @@ urlpatterns = [
  path("getswims/", views.get_saved_swims, name="getswims"),
  path("search", views.search, name="search"),
  path('success', views.success, name = 'success'),
+ path('search', views.search, name = "search"),
  path('addphoto/<int:id>/', views.add_photo, name='addphoto'),
  path('map', views.view_on_map, name='map'),
+ path("profile/<int:id>", views.get_profile, name='profile'),
+ path("edit/<int:id>", views.edit_profile, name='edit'),    
 #  path('photo/<int:pk>/delete/', PhotoDeleteView.as_view(), name='delete'),
 ]
 
