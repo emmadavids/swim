@@ -2,9 +2,6 @@
 
 {% block content %}
 
-
-  <h1>swim database</h1>
-  <p>Welcome to swimSpot a website developed by <em>Emma</em>!</p>
   <div class="container">
     {% for i in swims %}
 <h4>{{i.1}}</h4>
@@ -12,6 +9,7 @@
 <br><b>Toilets:</b> {% if i.3 %} Yes {% else %} No {% endif %}
 <br><b>Cafe:</b> {% if i.4%} Yes {% else %} No {% endif %}
 <br><b>Bathing Quality:</b> {{i.5}}<br><br>
+<br><b>Suitable for long distance training:</b> {{i.6}}<br><br>
 <p style="color: rgb(195, 195, 211); font-size: 12px;">
 Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
 <div class="row pb-5">
@@ -21,7 +19,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
      {% for j in i %}
      
 
-    <img src="../../{{j}}" alt="" height="70%" width="6%" />
+    <img src="../../{{j}}" alt="" height="70%" width="60%" />
   </div>
 
   <div class="col-md-4">
@@ -42,9 +40,9 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
   {% endif %}
   <div style="padding-bottom: 150px;">
   
-    {% for i in comments %}
-    
-    <li style="list-style-type:none;"><h3>{{i.0}}</h3> posted this comment on {{i.3}}:<br>{{ i.1 }} </a> </li>
+    {% for comment in commentos %}
+
+    <li class="comment" style="list-style-type:none;"><h3><a href="{% url 'profile' comment.user.id %}">{{comment.user.username}}</a></h3> posted this comment on {{comment.date_added}}:<br>{{ comment.comment }} </a> </li><br><br>
   
     {% endfor %}
     {% endfor %}

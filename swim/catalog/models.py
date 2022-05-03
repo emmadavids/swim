@@ -50,21 +50,17 @@ class SavedSwims(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        default=5,
-        primary_key=True,
-    )
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     date_added = models.DateTimeField(max_length=64, default=datetime.now(timezone.utc))
     comment = models.CharField(max_length=500)
     swim_id = models.ForeignKey(
         SwimSpot,
         default=1,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     ) 
+    hello = models.CharField(max_length=500)
     def __str__(self):
-        return f"{self.user} : {self.comment}"        
+        return f"{self.comment}"        
 
 class CommentForm(ModelForm):
     class Meta:

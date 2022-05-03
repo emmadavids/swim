@@ -124,7 +124,7 @@ def update_water_quality(request, wqid):
 
 def get_swim_spot(request, id):  
     swim = SwimSpot.objects.filter(id=id)
-    swims = swim.values_list('id', 'name', 'description', 'toilets', 'cafe', 'water_quality')
+    swims = swim.values_list('id', 'name', 'description', 'toilets', 'cafe', 'water_quality', 'distance_suitable')
     water_quality = swim.values_list('wq_id', flat=True)
     print(water_quality[0])
     update_water_quality(request, water_quality[0])
@@ -134,14 +134,16 @@ def get_swim_spot(request, id):
     photo = phot.values_list('image')
     location = list(Location.objects.filter(swimspot=id).order_by('name').values())
     location_json = json.dumps(location)
-    print(location_json)
-    context = {
+    
+    print("comment data", comments)
+ 
+    return render(request, "swimspot.html", {
         "photo": photo,
         "swims": swims,
         "comments": comments,
-        "locations": location_json
-    }
-    return render(request, "swimspot.html", context)    
+        "locations": location_json,
+        "commentos": commentos
+    })    
  
 
 
@@ -208,8 +210,8 @@ def comment(request, id):
         print("this should be the listing id", this.id)
         commentie = Comment()
         commentie.comment = request.POST.get('comment')
-        commentie.user = request.user.username
-        commentie.swim_id = this.id
+        commentie.user = request.user
+        commentie.swim_id = this
         print("fdhjfd: ", commentie.swim_id)
         commentie.save()
         return redirect('get', id=id)
@@ -246,4 +248,4 @@ def get_profile(request, id):
     return render(request, 'profilepage.html', {'prof': prof})
 
 def edit_profile(request, id):
-    
+    return render(request, 'editprofile.html')

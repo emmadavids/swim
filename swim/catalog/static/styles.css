@@ -1,0 +1,51 @@
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+    display: block;
+    font-size: 1em;
+    padding-bottom: 15px;
+    margin-top: -90px;
+  
+
+}
+
+
+.svg{
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+
+head {
+    position: relative;
+}
+h1 {
+    padding-left: 20px;
+    margin-top:25px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+.sidebar-nav li {
+	text-align: center;
+	background: #fff;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	border: solid black 2px;
+	list-style: none;
+	
+}
+
+.sidebar-nav a {
+	font-size: 1.3em;
+	color: #3acec2;
+  padding-bottom: 5px;
+  list-style: none;
+  
+
+}
+.comment {
+    border: black 1px solid;
+    padding: 25px;
+}
+
