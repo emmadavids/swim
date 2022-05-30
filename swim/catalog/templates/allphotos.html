@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+{% for i in photo|slice:"0:3" %}
+{% for j in i %}
+
+<div> <img src="../../{{j}}"/></div> 
+
+ {% endfor %}
+ {% endfor %}
+
+{% endblock %}

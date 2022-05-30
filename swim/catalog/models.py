@@ -24,6 +24,7 @@ class SwimSpot(models.Model):
     distance_suitable = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False) #admin can approve 
     wq_id = models.CharField(max_length=100, default='', null=True, blank=True)
+ 
 
     def __str__(self):
         return f"{self.name} : {self.description}"  
@@ -67,8 +68,14 @@ class CommentForm(ModelForm):
         model = Comment
         fields = ['comment']
 
+
 class Photo(models.Model):
-    swim_id = models.CharField(max_length=100, default="swim_id")
+    swim_id = models.ForeignKey(
+        SwimSpot,
+        default=1,
+        on_delete=models.CASCADE,
+        related_name="swimspot"
+    ) 
     title = models.CharField(max_length=45)
     description = models.CharField(max_length=250) 
     created = models.DateTimeField(auto_now_add=True)
@@ -78,6 +85,10 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
+
+#Using the query set of the swimspot instances, I want to get one photo for each (a different model) which has a foreign key of Photo.
+#swimspot-instance.photo.image
+#swimspot.image.all()
 
 class PhotoForm(ModelForm):
     class Meta:
@@ -116,5 +127,27 @@ class UserProfile(models.Model):
     events_completed = models.CharField(max_length=500) 
     training_for = models.CharField(max_length=500) 
     blurb = models.CharField(max_length=500) 
+
+
+
+
+class UPForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['events_completed', 'training_for', 'blurb']
+
+class ProfilePic(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
     image = models.ImageField(upload_to='photos/')
-#Remember to register new models to admin
+
+
+class PicForm(ModelForm):
+    class Meta:
+        model = ProfilePic
+        fields = ['image']    
+
+

@@ -6,20 +6,35 @@
 {% block content %}
 
   <div class="container">
+    <div class="row pb-5"> <div class="col-md">
 
-    <h3>{{prof.user.username}}'s profile</h3>
-    <img src="../../{{prof.image}}" alt="" height="45%" width="55%" />
+    <h3>{{prof.0.user.username}}'s profile</h3>
 
+    <img id="ppic" src="../../{{ photo.image }}"><br>  {% if request.user.id == prof.0.user.id %}
+    <button type="button" class="pbt btn btn-outline-info" onclick="ppView()">New Profile Pic</button>
+    <br><div id="changepp" style="display: none"><br>
+    <form action="{% url 'picadd' prof.0.user.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="pbt btn btn-outline-info">Upload</button></form>
+    </div> {% endif %}</div>
+    <div class="bio col-md">
     <br><strong>
     notable events completed: </strong><br>
-    {{ prof.events_completed }}    
+    {{ prof.0.events_completed }}    
     <br><strong>
     i am currently training for: </strong><br>
-     {{prof.training_for}}   
+     {{prof.0.training_for}}   
     <br><strong>
     other relevent (or irrelevent) blurb: </strong><br>
-    {{prof.blurb}}
+    {{prof.0.blurb}}
+      <br>{% if request.user.id == prof.0.user.id %}
+    <a href="{% url 'edit' prof.0.user.id %}"><button type="button" class="pbt btn btn-outline-info">Edit Profile</button></a>
+    {% endif %}
+    </div>
       </div>
-      <br><br>
-      Edit profile
+      </div>
+      
+
+
 {% endblock %}  

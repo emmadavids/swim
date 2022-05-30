@@ -5,17 +5,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://kit.fontawesome.com/6b1e3df50c.js" crossorigin="anonymous"></script>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,96L48,117.3C96,139,192,181,288,186.7C384,192,480,160,576,176C672,192,768,256,864,288C960,320,1056,320,1152,272C1248,224,1344,128,1392,80L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+  <script src="https://kit.fontawesome.com/6b1e3df50c.js" crossorigin="anonymous"></script>
+  <svg class="svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="0.7" d="M0,96L48,117.3C96,139,192,181,288,186.7C384,192,480,160,576,176C672,192,768,256,864,288C960,320,1056,320,1152,272C1248,224,1344,128,1392,80L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'styles.css' %}">
+  {% block script %}
+  <script defer src="{% static 'javascrpt.js' %}"></script>
+  {% endblock %}
 
   <h1>swim database. <?xml version="1.0" standalone="no"?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
      "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-    <svg class="svg" version="1.0" xmlns="http://www.w3.org/2000/svg"
+    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
      width="128.000000pt" height="71.000000pt" viewBox="0 0 1280.000000 715.000000"
      preserveAspectRatio="xMidYMid meet">
     <metadata>
@@ -58,13 +64,13 @@
     </h1>
 
 </head>
-<body>
-
+<body> 
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
-        <ul class="sidebar-nav">
+     <div class="lgscreen">
+        <ul class="navbar navbar-light sidebar-nav" id="sidebar-nav">
           <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'map' %}">View on Map</a></li>
@@ -78,7 +84,7 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'profile' user.id %}">My Profile</a></li>
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-              </li>
+              </li></div>
           {% else %}
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Log In</a>
@@ -87,8 +93,36 @@
                   <a class="nav-link" href="{% url 'register' %}">Register</a>
               </li>
           {% endif %}
+        </div>
         </ul>
+        <div class="smallscreen">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">Navbar</a>
+        
+          <!-- Toggler/collapsibe Button -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <!-- Navbar links -->
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
      {% endblock %}
+     
       </div>
       <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
     </div>

@@ -1,15 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>swim database</h1>
-  <p>Welcome to swimSpot a website developed by <em>Emma</em>!</p>
-  search for a swim here 
 
 
-  <form action="{% url 'edit' %}" method="POST">
+  <form action="{% url 'edit' u1.id %}" method="POST">
+    {{form}}
     {% csrf_token %} 
-    <input type="text" name="name">
-    <input type="submit" name="submit" value="Edit">
+    <input type="submit" name="submit" value="Submit">
 </form>
 
 

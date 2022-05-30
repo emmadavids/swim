@@ -1,3 +1,16 @@
+@import "compass/css3";
+
+
+
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    background:white;
+  }
+  
+
 .sidebar-nav {
     padding: 0;
     list-style: none;
@@ -5,13 +18,13 @@
     font-size: 1em;
     padding-bottom: 15px;
     margin-top: -90px;
+ 
   
-
 }
 
 
 .svg{
-    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+    background: linear-gradient(#FBFAD8, transparent 93%),
 }
 
 
@@ -35,7 +48,12 @@ h1 {
 	list-style: none;
 	
 }
-
+img {
+    padding: 5px;
+}
+.col-sm-4 {
+    margin-top: -25px;
+}
 .sidebar-nav a {
 	font-size: 1.3em;
 	color: #3acec2;
@@ -44,8 +62,151 @@ h1 {
   
 
 }
+
+.sidebar-nav a:hover {
+	text-transform: uppercase;
+  
+
+}
 .comment {
     border: black 1px solid;
     padding: 25px;
 }
 
+#swimspot {
+    background-color: rgb(216, 247, 236);
+    padding: 25px;   
+    border-radius: 25px;
+}
+
+  .gallery {
+    height: 270px;
+    width: 50%;
+    margin-left: 50px !important;
+    margin-top: 65px !important; 
+    margin-right: 100px !important;
+    padding: 50px;
+    background: seashell;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    position: relative;
+    border-radius: 25px;
+  }
+  
+  .gallery > div {
+    float: left; 
+  }
+  
+  .gallery > div > img {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    overflow: hidden !important;
+    display: block !important;
+    transition: .1s transform;
+    transform: translateZ(0); /* hack */
+    padding-top: 25px; 
+  }
+  
+.intro {
+  background-color: seashell;
+  padding: 25px;
+  border-radius: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 20px;
+  margin-right: 45px;
+  
+}
+
+.bio {
+  background-color: seashell;
+  padding: 45px;
+  margin: 30px;
+  border-radius: 25px;
+}
+
+  #allpix {
+    position: absolute;
+    bottom: 25px;
+    right: 85px;
+  }
+
+  #ppic {
+    border: 2px solid aquamarine;
+    height: 250px;
+    margin-left: 100px;
+   
+  }
+  
+  .gallery > div:hover {
+    z-index: 10;
+    position: sticky;
+  }
+  
+  .gallery > div:hover > img {
+    transform: scale(3.4,3.4);
+    transition: .3s transform;
+    z-index: 10;
+    position: sticky;
+    
+  }
+
+.searchform {
+  padding: 50px;
+  background: seashell;
+  margin-right: 300px;
+  border-radius: 25px;
+}
+
+  
+  .cf:before, .cf:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  
+  .cf:after {
+    clear: both;
+  }
+
+  .pbt {
+   margin-top: 10px;
+
+  }
+
+  .comments {
+    background-color: lightseagreen;
+    margin-top: -120px;
+    border-radius: 25px;
+  }
+  
+
+  .img-holder {
+    width: 200px !important;
+    height: 200px !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+  .img-holder img {
+    position: absolute !important;
+    display: block !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+
+  .smallscreen {
+    display: none;
+  }
+
+  
+
+  @media screen and (max-width: 600px) {
+    .lgscreen {
+      display: none;
+  }
+
+  .smallscreen {
+    display: block;
+  }
+
+}
+  

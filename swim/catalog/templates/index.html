@@ -2,26 +2,49 @@
 
 {% block content %}
  
-  <div class="container">
-
+  <div class="container"> 
+    <div class="row"> 
+      <div class="intro col-sm">
+      Hello and welcome to swim database. Please see below for information on various open water swimming locations. You can filter the below swims by facilities (cafe or toilets)
+      or "distance suitable" which denotes that the location is suitable for long-distance or triathlon training, when you want more than just a cool refreshing dip. 
+      Research on open water swimming is still in its infancy, but early studies indicate promising results for mental wellness. Please help us build the database by adding to it 
+      <a href="{% url 'add' %}">here</a>.<br>
+   <br>
+        {% if form is not None %}
+        <strong>Swim filter:</strong><form method="post" novalidate>
+           {% csrf_token %}
+       
+           {{ form }}
+          
+           <button class="pbt btn btn-outline-info" type="submit">Submit</button>
+           {% endif %}
+       
+    </div>
+    </div><br>
+    <div class="row"> 
    {% for i in page_obj.object_list %}  
    
       {% if i.2 %}
       
-   
-         <a href="{% url 'get' i.0 %}" class="btn btn-primary">{{ i.1 }} </a> <br> 
-
+      <div class="col-sm">
+        <li style="list-style-type:none;"> 
+          
+            <div class="card" style="width: 12.5rem; height: 13rem;"> 
+                <div class="img-holder">
+                <img class="card-img-top" src="../../{{ i.3.image }}" alt="Card image cap">
+            </div> 
+                <div class="card-body"> 
+                
+                  <a href="{% url 'get' i.0 %}" class="pbt btn btn-outline-info">{{i.1}}</a>
+                </div> 
+              
+          
+    </div></li> 
+    </div>
          {% endif %}
       {% endfor %}
-      {% if form is not None %}
-      <form method="post" novalidate>
-         {% csrf_token %}
-     
-         {{ form }}
-        
-         <button type="submit">Submit</button>
-         {% endif %}
-      </div>
+    </div> <br>
+
       <ul class="pagination justify-content-center">
          {% if page_obj.has_previous %}
          <li class="page-item">
@@ -46,5 +69,5 @@
              </a>
          </li>
          {% endif %}
-     </ul>
+     </ul></div>
 {% endblock %}

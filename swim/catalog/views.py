@@ -1,16 +1,19 @@
+from cProfile import Profile
 from django.shortcuts import render, redirect
 import requests
 import json 
-from .models import SwimSpot, SavedSwims, Comment, User, SwimForm, Photo, PhotoForm, Location, FilterForm, UserProfile
+from itertools import chain
+from .models import SwimSpot, SavedSwims, Comment, User, SwimForm, Photo, PhotoForm, Location, FilterForm, UserProfile, UPForm, ProfilePic, PicForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime, timezone, timedelta
 from django.shortcuts import get_object_or_404
-from django.core.exceptions import PermissionDenied
-from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
+
 
 
 def index(request):
@@ -30,7 +33,14 @@ def index(request):
         form = FilterForm()
         swimspots = SwimSpot.objects.all().order_by('id') #gets all swimspots 
     vals = swimspots.values_list('id', 'name', 'is_approved')
-    paginator = Paginator(vals, 10)
+    listo = []
+    for item in vals:
+        henlo = list(Photo.objects.filter(swim_id=item[0])[:1])
+        print("this is henlo", henlo)
+        objects = list(chain(item, henlo))
+        listo.append(objects)
+    print("this is listo: ", listo)
+    paginator = Paginator(listo, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)    
     return render(request, "index.html", {
@@ -105,14 +115,15 @@ def register(request):
 
 def update_water_quality(request, wqid):
     url = 'https://environment.data.gov.uk/doc/bathing-water/{0}.json'.format(wqid)
-    response = requests.get(url)
-    data = response.json()
     swim = SwimSpot.objects.get(wq_id=wqid)
-    print("water quality data :", data['result']['primaryTopic']['latestComplianceAssessment']['complianceClassification']['name']['_value'])
-    if data is None:
-        swim.water_quality = "Sorry, water quality data for this swim location is not available"
+    response = requests.get(url)
+    print("this is the response", response)
+    if response.status_code != 200:
+        swim.water_quality = "Sorry, water quality data for this swim location is not currently available"
         swim.save()
-    else:    
+        return render(request, "swimspot.html", {})  
+    else:  
+        data = response.json()  
         swim.water_quality = data['result']['primaryTopic']['latestComplianceAssessment']['complianceClassification']['name']['_value']
         swim.save()
     return render(request, "swimspot.html", {})    
@@ -225,8 +236,7 @@ def add_photo(request, id):
         form = PhotoForm(request.POST, request.FILES)
         photo = Photo()
         if form.is_valid():
-            # swimmy.added_by = request.user #is there a need to store this data?
-            photo.swim_id = int(this.id)
+            photo.swim_id = this
             photo.title = form.cleaned_data.get('title')
             photo.description = form.cleaned_data.get('description')
             photo.image = form.cleaned_data.get('image')
@@ -236,6 +246,7 @@ def add_photo(request, id):
     else:
         form = PhotoForm()
     return render(request, 'create.html', {'form': form,
+    'this' : this
     })
   
 def success(request):
@@ -243,9 +254,84 @@ def success(request):
 
 
 def get_profile(request, id):
-    prof = UserProfile.objects.get(user_id=id)
-    print("this is prof", prof)
-    return render(request, 'profilepage.html', {'prof': prof})
+    form = PicForm()
+    u1 = User.objects.get(id=id)
+    try:
+        photo = ProfilePic.objects.get(user_id=u1)
+    except ProfilePic.DoesNotExist:
+        photo = None     
+    try:   
+        prof = UserProfile.objects.filter(pk=u1)
+    except UserProfile.DoesNotExist:
+        prof = None
+    print("this is prof, ", prof)    
+    if prof.count() == 0:
+        return edit_profile(request, id)    
+    return render(request, 'profilepage.html', {'prof': prof,
+    'form': form,
+    'photo': photo})
 
 def edit_profile(request, id):
-    return render(request, 'editprofile.html')
+    prof = UserProfile()
+    u1 = User.objects.get(id=id)
+    content = UserProfile.objects.filter(pk=u1)
+    print("this is content yo", content)
+    if request.method == 'GET':
+        if content.count() == 0:
+            formie = UPForm()
+        else:    
+            formie = UPForm({'events_completed': content[0].events_completed,
+            "blurb": content[0].blurb,
+            "training_for": content[0].training_for
+        })
+    else: 
+        profile = UPForm(request.POST) 
+        if profile.is_valid():
+            content.delete() #deletes existing user profile
+            prof.user = request.user
+            prof.events_completed = profile.cleaned_data["events_completed"]
+            prof.blurb = profile.cleaned_data["blurb"]
+            prof.training_for = profile.cleaned_data["training_for"]
+            prof.save()
+        return get_profile(request, id)    
+    return render(request, 'editprofile.html', {
+        'content' : content,
+        'form' : formie,
+        'u1'   : u1
+    })
+
+def all_photos(request, id):   
+    phot = Photo.objects.filter(swim_id=id)
+    photo = phot.values_list('image')
+    return render(request, 'allphotos.html', {
+        'photo': photo
+    })
+
+def add_profile_pic(request, id):
+    u1 = User.objects.get(id=id)
+    id = u1.id
+    beb = str(id)
+    url = '../profile/' + beb
+    if request.method == 'POST':   
+        pic_f = PicForm(request.POST, request.FILES)   
+        try: 
+            existing = ProfilePic.objects.get(pk=id)
+            existing.delete()   #deletes the old profile pic
+            if pic_f.is_valid():
+                new_pp = ProfilePic()
+                new_pp.user_id = request.user.id
+                new_pp.image = pic_f.cleaned_data["image"]
+                print(new_pp)
+                new_pp.save()
+                return HttpResponseRedirect(url)
+        except ProfilePic.DoesNotExist:
+            if pic_f.is_valid():
+                new_pp = ProfilePic()
+                new_pp.user_id = request.user.id
+                new_pp.image = pic_f.cleaned_data["image"]
+                print(new_pp)
+                new_pp.save()
+                return HttpResponseRedirect(url)
+
+
+            

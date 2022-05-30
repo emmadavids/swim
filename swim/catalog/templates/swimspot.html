@@ -2,84 +2,96 @@
 
 {% block content %}
 
-  <div class="container">
+  <div class="container"> 
+    <div class="row pb-5"><div id="swimspot" class="col-md">
     {% for i in swims %}
 <h4>{{i.1}}</h4>
 <p>{{i.2}}</p>
 <br><b>Toilets:</b> {% if i.3 %} Yes {% else %} No {% endif %}
 <br><b>Cafe:</b> {% if i.4%} Yes {% else %} No {% endif %}
-<br><b>Bathing Quality:</b> {{i.5}}<br><br>
-<br><b>Suitable for long distance training:</b> {{i.6}}<br><br>
-<p style="color: rgb(195, 195, 211); font-size: 12px;">
+<br><b>Bathing Quality:</b> {{i.5}}
+<br><b>Suitable for long distance training:</b> {% if i.6 %} Yes {% else %} No {% endif %}<br><br>
+<p style="color: darkgray; font-size: 12px;">
 Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
-<div class="row pb-5">
-  <div class="col-md-8">
 
-    {% for i in photo %}
-     {% for j in i %}
+{% if user.is_authenticated %}<br><br><i class="fa-solid fa-heart-circle-plus"></i><p style="color:coral"><button type="button" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swim</a></button> </p><br><br>
+</div>
+  <div class="gallery cf col-md">
+
+  {% for i in photo|slice:"0:2" %}
+   {% for j in i %}
+   
+  <div> <img src="../../{{j}}"/></div> 
+
+    {% endfor %}
+    {% endfor %}
+    <button type="button" class="pbt btn btn-outline-info"> <a href="{% url 'addphoto' i.0 %}"><b>Upload a photo</b></a></button>
+    <button type="button" class="pbt btn btn-outline-info" id="allpix"><a href="{% url 'allpix' i.0 %}" >Show all photos</a></button>
+   </div> 
+  
      
 
-    <img src="../../{{j}}" alt="" height="70%" width="60%" />
+</div> 
+<div class="row pb-5">
+  <div class="col-md">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=yes">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+  <style>
+
+  #map { position: absolute; top: 0; height: 100%; width: 100%; margin-left: -50px; }
+  </style>
+  
+  <div id="map"></div>
+   
+  <script>
+    let swimLocation = JSON.parse("{{ locations|escapejs }}"); 
+      let lng = swimLocation[0].longitude;
+        let lt =  swimLocation[0].latitude; 
+          let lat = parseFloat(lt);
+            let long = parseFloat(lng);
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1tYWRhdmlkcyIsImEiOiJjbDJlcW1sOWIwMGdhM2VyenAwZmtobTV6In0.xN9yyL4whJVANZa1Vmxr1A';
+  const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [long, lat],
+  offset: [200, 0],
+  zoom: 12
+  });
+  
+  // Create a default Marker and add it to the map.
+  const marker1 = new mapboxgl.Marker()
+  .setLngLat([long, lat])
+  .addTo(map);
+   
+  </script>
+    
   </div>
-
-  <div class="col-md-4">
-    {% endfor %}
-    {% endfor %}
- 
-    <a href="{% url 'addphoto' i.0 %}"><b>Upload a photo of this swimspot</b></a>
-{% if user.is_authenticated %}<br><br><i class="fa-solid fa-heart-circle-plus"></i><p style="color:coral"><a href="{% url 'save_swim' i.0 %}">Save this swim</a> </p><br><br>
-
-<br><h3><b>Have you been swimming here? What did you think? </b></h3>
+    
+  <div class="comments col-md">
+<br><h3><b>Have you been swimming here? What did you think? </b></h3><br>
+<br>
 <form method="POST" action="{% url 'comment' i.0 %}">
     {% csrf_token %}
     <textarea class="form-control" rows="3" name="comment" placeholder="Write your comment here..." required></textarea>
-    <button type="submit">Submit</button>
+    <button type="submit" class="pbt btn btn-outline-info">Submit</button>
+
+ 
    
   </form>
+
   <br><br>
   {% endif %}
-  <div style="padding-bottom: 150px;">
-  
-    {% for comment in commentos %}
 
+
+    {% for comment in commentos %}
+   
     <li class="comment" style="list-style-type:none;"><h3><a href="{% url 'profile' comment.user.id %}">{{comment.user.username}}</a></h3> posted this comment on {{comment.date_added}}:<br>{{ comment.comment }} </a> </li><br><br>
   
     {% endfor %}
     {% endfor %}
   </div>
 
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 150px; right:-100px; height: 50%; width: 50%; }
-</style>
-
-<div id="map"></div>
- 
-<script>
-  let swimLocation = JSON.parse("{{ locations|escapejs }}"); 
-    let lng = swimLocation[0].longitude;
-      let lt =  swimLocation[0].latitude; 
-        let lat = parseFloat(lt);
-          let long = parseFloat(lng);
-mapboxgl.accessToken = 'pk.eyJ1IjoiZW1tYWRhdmlkcyIsImEiOiJjbDJlcW1sOWIwMGdhM2VyenAwZmtobTV6In0.xN9yyL4whJVANZa1Vmxr1A';
-const map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [long, lat],
-zoom: 8
-});
-
-// Create a default Marker and add it to the map.
-const marker1 = new mapboxgl.Marker()
-.setLngLat([long, lat])
-.addTo(map);
- 
-</script>
-  
-  
-      
+   
 
 {% endblock %}

@@ -5,11 +5,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>image</title>
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    <title>{{this.name}} </title>
+  <h2> Uploading a photo of {{this.name}} </h2>
 </head>
 <body>
-    <form method = "post" enctype="multipart/form-data">
+    <form action="{% url 'addphoto' this.id %}" method = "post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Upload</button>
