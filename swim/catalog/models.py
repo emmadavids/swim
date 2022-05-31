@@ -86,9 +86,6 @@ class Photo(models.Model):
     def __str__(self):
         return self.title
 
-#Using the query set of the swimspot instances, I want to get one photo for each (a different model) which has a foreign key of Photo.
-#swimspot-instance.photo.image
-#swimspot.image.all()
 
 class PhotoForm(ModelForm):
     class Meta:

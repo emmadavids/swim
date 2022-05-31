@@ -198,7 +198,6 @@ img {
   }
 
   
-
   @media screen and (max-width: 600px) {
     .lgscreen {
       display: none;
@@ -206,7 +205,31 @@ img {
 
   .smallscreen {
     display: block;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
+
+  .navbar {
+    background-color: #0099ff!important;
+    font-size: large !important;
+    opacity: 0.98;
+    z-index: 10;
+    position: relative !important;
+
+  }
+
+.whale {
+  z-index: 15;
+  position: absolute;
+  left: 250px;
+  float: right;
+}
+
+.wordy {
+  display: none;
+}
 
 }
   
