@@ -32,7 +32,7 @@ def index(request):
     else:
         form = FilterForm()
         swimspots = SwimSpot.objects.all().order_by('id') #gets all swimspots 
-    vals = swimspots.values_list('id', 'name', 'is_approved')
+    vals = swimspots.values_list('id', 'name', 'is_approved', 'description')
     listo = []
     for item in vals:
         henlo = list(Photo.objects.filter(swim_id=item[0])[:1])

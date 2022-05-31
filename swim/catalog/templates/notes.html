@@ -1,7 +1,26 @@
-psuedo code for index page
 
-create a set of all photo objects associated with swimspot objects, ([image1, image2], [image3, image4, image5]) for example
-sort by same order that swimspot objects are sorted so each list of imgs corresponds with the swimspot they are from
-use template to use [0] of each list unless list is empty.set an image that can be used as default
-
-or create a set that merges them both on the views side
+    <img id="ppic" src="../../{{ photo.image }}"><br>  {% if request.user.id == prof.0.user.id %}
+    <button type="button" class="pbt btn btn-outline-info" onclick="ppView()">New Profile Pic</button>
+    <br><div id="changepp" style="display: none"><br>
+    <form action="{% url 'picadd' prof.0.user.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="pbt btn btn-outline-info">Upload</button></form>
+    </div> {% endif %}</div>
+    <div class="bio col-md">
+    <br><strong>
+    notable events completed: </strong><br>
+    {{ prof.0.events_completed }}    
+    <br><strong>
+    i am currently training for: </strong><br>
+     {{prof.0.training_for}}   
+    <br><strong>
+    other relevent (or irrelevent) blurb: </strong><br>
+    {{prof.0.blurb}}
+      <br>{% if request.user.id == prof.0.user.id %}
+    <a href="{% url 'edit' prof.0.user.id %}"><button type="button" class="pbt btn btn-outline-info">Edit Profile</button></a>
+    {% endif %}
+    </div>
+      </div>
+      </div>
+      

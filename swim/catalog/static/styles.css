@@ -63,6 +63,10 @@ img {
 
 }
 
+a {
+  color: #3acec2;
+}
+
 .sidebar-nav a:hover {
 	text-transform: uppercase;
   
@@ -133,7 +137,7 @@ img {
   #ppic {
     border: 2px solid aquamarine;
     height: 250px;
-    margin-left: 100px;
+  
    
   }
   
@@ -229,6 +233,10 @@ img {
 
 .wordy {
   display: none;
+}
+
+.card {
+  margin-left: 24px;
 }
 
 }

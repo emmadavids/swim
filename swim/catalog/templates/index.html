@@ -21,29 +21,31 @@
        
     </div>
     </div><br>
-    <div class="row"> 
+    <div class="card-deck">
    {% for i in page_obj.object_list %}  
-   
+
       {% if i.2 %}
       
-      <div class="col-sm">
-        <li style="list-style-type:none;"> 
-          
-            <div class="card" style="width: 12.5rem; height: 13rem;"> 
-                <div class="img-holder">
-                <img class="card-img-top" src="../../{{ i.3.image }}" alt="Card image cap">
-            </div> 
-                <div class="card-body"> 
-                
-                  <a href="{% url 'get' i.0 %}" class="pbt btn btn-outline-info">{{i.1}}</a>
-                </div> 
+   
               
           
-    </div></li> 
-    </div>
+
+                
+                  <div class="card" style="max-width: 24.5rem;">
+                  
+                      <img class="card-img-top" src="../../{{ i.4.image }}" alt="Card image cap">
+                
+                    <div class="card-body">
+                      <h5 class="card-title"> <a href="{% url 'get' i.0 %}">{{i.1}}</a></h5>
+                      <p class="card-text">{{i.3}}.</p>
+                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
+
          {% endif %}
       {% endfor %}
-    </div> <br>
+    </div>
+     <br>
 
       <ul class="pagination justify-content-center">
          {% if page_obj.has_previous %}
