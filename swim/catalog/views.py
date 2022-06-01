@@ -201,7 +201,7 @@ def save_swim(request, id):
         this = SwimSpot.objects.get(id=id)
         swi = SavedSwims()
         swi.user = request.user.id
-        swi.swim_id = this.id
+        swi.swim_id = this
         swi.save()
         return redirect('getswims') #save swims html still needs to be made 
 

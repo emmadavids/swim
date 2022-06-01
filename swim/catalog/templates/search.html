@@ -14,6 +14,10 @@
 </div>
 <br><br>
 
+{% if not results %}
+No results found
+{% endif %}
+
 {% for i in results %}
 
 <a href="{% url 'get' i.id %}" class="btn btn-outline-info">{{ i.name }} </a> <br> 

@@ -1,12 +1,17 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<p>
+
+  <div class="container"> 
+    <div class="row"> 
+      <div class="intro col-sm">
+   
+        <p>
   If you swim in open water somewhere not listed here, why not add it to the database?
   In the description, please think about whether the location is suitable for distance/triathlon training or more just for paddling or a cooling dip.
   If the toilets/cafe are a short walk away or not in an obvious location, please add this to the description. </p>
-  <div class="container">
-    <form method="post" novalidate>
+</div></div>
+    <form class="form-group" method="post" novalidate>
         {% csrf_token %}
     
         {{ form }}

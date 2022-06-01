@@ -182,20 +182,6 @@ a {
     margin-top: -120px;
     border-radius: 25px;
   }
-  
-
-  .img-holder {
-    width: 200px !important;
-    height: 200px !important;
-    position: relative !important;
-    overflow: hidden !important;
-  }
-  .img-holder img {
-    position: absolute !important;
-    display: block !important;
-    top: 0 !important;
-    left: 0 !important;
-  }
 
   .smallscreen {
     display: none;

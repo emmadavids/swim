@@ -45,7 +45,11 @@ class SwimForm(ModelForm):
 
 class SavedSwims(models.Model):
     user = models.CharField(max_length=25, default="string", null=True, blank=True)
-    swim_id = models.CharField(max_length=100, default="swim_id")
+    swim_id = models.ForeignKey(
+        SwimSpot,
+        default=1,
+        on_delete=models.CASCADE
+    ) 
     def __str__(self):
         return f"{self.user} | {self.swim_id}"    
 

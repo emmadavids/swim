@@ -85,7 +85,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 
 
     {% for comment in commentos %}
-   
+
     <li class="comment" style="list-style-type:none;"><h3><a href="{% url 'profile' comment.user.id %}">{{comment.user.username}}</a></h3> posted this comment on {{comment.date_added}}:<br>{{ comment.comment }} </a> </li><br><br>
   
     {% endfor %}

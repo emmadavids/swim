@@ -3,11 +3,13 @@
 {% block content %}
   
   <div class="container">
- {{ saved_swims.0.0 }}
+
       {% for i in saved_swims %}
+    {{i}}}
    
-         <a href="{% url 'get' i.1 %}" class="btn btn-primary">{{ i.0.0.name }} </a> <br> 
+         <a href="{% url 'get' i.1 %}" class="pbt btn btn-outline-info">{{ i.swim_id.name}} </a> <br> 
       
+         
       {% endfor %}
       </div>
 {% endblock %}  

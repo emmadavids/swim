@@ -12,20 +12,32 @@
 
 
     <div class="card text-white bg-info mb-3" style="max-width: 40rem;">
-      <div class="card-header"> {{prof.0.user.username}}'s profile
+      <div class="card-header">About me
       </div>
       <div class="card-body">
-        <h5 class="card-title">Info card title</h5>
-        <p class="card-text"> 
-          <img id="ppic" src="../../{{ photo.image }}"><br>
-           notable events completed: </strong><br>
+        <h5 class="card-title">{{prof.0.user.username}}</h5>
+        <p class="card-text"> <br>
+          <img id="ppic" src="../../{{ photo.image }}"><br><br>
+          {% if request.user.id == prof.0.user.id %}
+    <button type="button" class="pbt btn btn-primary btn-sm" onclick="ppView()">New Profile Pic</button>
+          <div id="changepp" style="display: none"><br>
+            <form action="{% url 'picadd' prof.0.user.id %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="pbt btn btn-primary btn-sm">Upload</button></form>
+            </div> {% endif %}
+          <strong>Notable events completed: </strong><br>
           {{ prof.0.events_completed }}    
           <br><strong>
-          i am currently training for: </strong><br>
+          I am currently training for: </strong><br>
            {{prof.0.training_for}}   
           <br><strong>
-          other relevent (or irrelevent) blurb: </strong><br>
-          {{prof.0.blurb}}</p>
+          Other relevent (or irrelevent) blurb: </strong><br>
+          {{prof.0.blurb}}</p><br>
+          <br>{% if request.user.id == prof.0.user.id %}
+          <a href="{% url 'edit' prof.0.user.id %}"><button type="button" class="pbt btn btn-primary btn-sm">Edit Profile</button></a>
+          {% endif %}
+          </div></div></div>
       </div>
 
 
