@@ -3,7 +3,8 @@
    <style> 
        #map { 
            height: 350px; 
-           width: 70%; 
+           width: 100%; 
+           margin-left: 50px;
        } 
  
        .mapboxgl-marker { 
@@ -13,9 +14,10 @@
        .locator-popup { 
            font-size: 14px; 
        } 
-   </style> <div>
-   <h3>Swim Locations</h3> 
-   <h5>Click a location to see swim details</h5> 
+   </style><div class="container">
+   
+   <h3>Swim Locations</h3> <br>
+   Click a location to see swim details. <br>
    <div id='map' class='map'></div> 
      
    <!-- load TomTom Maps Web SDK from CDN --> 
@@ -44,7 +46,7 @@
            // create popup to display store information when the marker is clicked 
            let popup = new tt.Popup().setHTML(` 
                <div class="locator-popup"> 
-                <a href="../catalog/${id}/" class="btn btn-primary"> ${name} </a> <br> 
+                <a href="../catalog/${id}/" class="btn btn-outline-info"> ${name} </a> <br> 
                 <h6>Address</h6> 
                 <p>${storeLocation.address}</p> 
                </div> 
@@ -63,5 +65,10 @@
            }); 
        }) 
    </script> 
-   </div>
+
+
+  
+
+</div>
+
 {% endblock %}

@@ -2,8 +2,7 @@
 
 {% block content %}
  
- 
-
+ <div class="container">
 <div class="searchform">
   Search for a swim: <br>
   <form action="{% url 'search' %}" method="POST">
@@ -15,7 +14,7 @@
 <br><br>
 
 {% if not results %}
-No results found
+Results will appear here 
 {% endif %}
 
 {% for i in results %}
@@ -24,6 +23,6 @@ No results found
 
 {% endfor %}
 
+      </div></div>
 
-      </div>
 {% endblock %}

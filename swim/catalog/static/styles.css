@@ -23,6 +23,18 @@ body {
 }
 
 
+
+.d-block  {
+  max-height: 500px !important;
+  border: 1px black solid;
+}
+
+
+.swimloc {
+  margin-left: 50px;
+}
+
+
 .svg{
     background: linear-gradient(#FBFAD8, transparent 93%),
 }
@@ -179,7 +191,7 @@ a {
 
   .comments {
     background-color: lightseagreen;
-    margin-top: -120px;
+    margin-top: 120px;
     border-radius: 25px;
   }
 

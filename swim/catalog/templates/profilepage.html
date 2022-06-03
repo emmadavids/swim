@@ -38,6 +38,25 @@
           <a href="{% url 'edit' prof.0.user.id %}"><button type="button" class="pbt btn btn-primary btn-sm">Edit Profile</button></a>
           {% endif %}
           </div></div></div>
+          <div class="col-md intro">
+
+
+     
+          <h2>{{prof.0.user.username}}'s saved swims</h2>
+          <br>
+           
+  <div class="container">
+
+    {% for i in saved_swims %}
+  {{i}}
+ 
+       <a href="{% url 'get' i.1 %}" class="pbt btn btn-outline-info">{{ i.1}} </a> <br> 
+    
+       
+    {% endfor %}
+    </div>
+          </div>
+         
       </div>
 
 

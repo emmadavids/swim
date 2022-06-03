@@ -257,6 +257,12 @@ def get_profile(request, id):
     form = PicForm()
     u1 = User.objects.get(id=id)
     try:
+        swimmo = SavedSwims.objects.filter(user=id)
+    except SavedSwims.DoesNotExist:
+        swimmo = None
+    if swimmo is not None:
+        saved_swims = swimmo.values_list('user', 'swim_id')
+    try:
         photo = ProfilePic.objects.get(user_id=u1)
     except ProfilePic.DoesNotExist:
         photo = None     
@@ -269,7 +275,8 @@ def get_profile(request, id):
         return edit_profile(request, id)    
     return render(request, 'profilepage.html', {'prof': prof,
     'form': form,
-    'photo': photo})
+    'photo': photo,
+    'saved_swims': saved_swims})
 
 def edit_profile(request, id):
     prof = UserProfile()
