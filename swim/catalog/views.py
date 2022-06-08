@@ -150,6 +150,7 @@ def get_swim_spot(request, id):
  
     return render(request, "swimspot.html", {
         "photo": photo,
+        "phot": phot,
         "swims": swims,
         "comments": comments,
         "locations": location_json,

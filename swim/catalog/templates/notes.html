@@ -1,1 +1,36 @@
-sidebar nav column
+<div class="col-md">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=yes">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+  <style>
+
+  #map { position: absolute; top: 0; height: 110%; width: 100%; border:3px; margin-right: 10px;}
+  </style>
+  
+  <div id="map"></div>
+   
+  <script>
+    let swimLocation = JSON.parse("{{ locations|escapejs }}"); 
+      let lng = swimLocation[0].longitude;
+        let lt =  swimLocation[0].latitude; 
+          let lat = parseFloat(lt);
+            let long = parseFloat(lng);
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1tYWRhdmlkcyIsImEiOiJjbDJlcW1sOWIwMGdhM2VyenAwZmtobTV6In0.xN9yyL4whJVANZa1Vmxr1A';
+  const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: lt, lng,
+  offset: [-500, -500],
+  zoom: 12
+  });
+  
+  // Create a default Marker and add it to the map.
+  const marker1 = new mapboxgl.Marker()
+  .setLngLat([long, lat])
+  .addTo(map);
+   
+
+  </script>
+    
+  </div>
+    

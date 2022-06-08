@@ -1,20 +1,14 @@
 {% extends 'base_generic.html' %}
 {% block content %}
+<div class="col-md">
+<h2> Uploading a photo of {{this.name}} </h2>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{this.name}} </title>
-  <h2> Uploading a photo of {{this.name}} </h2>
-</head>
-<body>
+    <br><br>
     <form action="{% url 'addphoto' this.id %}" method = "post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Upload</button>
     </form>
-</body>
-</html>
 
+</div>
 {% endblock %}
