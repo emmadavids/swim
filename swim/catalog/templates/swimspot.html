@@ -15,9 +15,17 @@
 <p style="color: darkgray; font-size: 12px;">
 Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
 
-{% if user.is_authenticated %}<br><button type="button" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swimspot</a></button>
-<br><button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Upload a photo of this swimspot</a></button><br><br>
+{% if user.is_authenticated %}
+{% if i.0 in saved.0 %}
+<br><button type="button" id="save{{i.0}}" class="unsave pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Unsave this swim</a></button>
+{% else %}
+<br><button type="button" id="save{{i.0}}" class="save pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swimspot</a></button> 
 {% endif %}
+<br><button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Upload a photo of this swimspot</a></button><br><br>
+
+<p style="color: darkgray; font-size: 12px;">Saved swims will appear under "my profile".</p>
+{% endif %}
+
 </div>
 
 
@@ -70,6 +78,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
             let swimLocation = JSON.parse("{{ locations|escapejs }}"); 
               let lng = swimLocation[0].longitude;
               let lt =  swimLocation[0].latitude; 
+              let loc =  swimLocation[0].address; 
                 let lat = parseFloat(lt);
                 let long = parseFloat(lng);   
                 let coords = [long, lat]
@@ -89,7 +98,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
         left: [25, -35],
         right: [-25, -35]
       } 
-        var popup = new tt.Popup({offset: popupOffsets}).setHTML("your company name, your company address");
+        var popup = new tt.Popup({offset: popupOffsets}).setHTML(`${loc}`);
 marker.setPopup(popup).togglePopup();
        
         </script>
@@ -98,10 +107,8 @@ marker.setPopup(popup).togglePopup();
     
   <div class="comments col-md">
 <br><h3><b>Share your thoughts: </b></h3><br>
-<br>peepoo
-{% if user.is_authenticated %}
 
-beep boop boop 
+{% if user.is_authenticated %}
 
 <form method="POST" action="{% url 'comment' i.0 %}">
     {% csrf_token %}
@@ -112,13 +119,18 @@ beep boop boop
    
   </form>
 
-  <br><br>
+  <br>
   {% endif %}
 
+{% if not commentos %}
 
+No comments here yet! Why not add the first one?
+
+{% endif %}
     {% for comment in commentos %}
 
-    <li class="comment" style="list-style-type:none;"><h3><a href="{% url 'profile' comment.user.id %}">{{comment.user.username}}</a></h3> posted this comment on {{comment.date_added}}:<br>{{ comment.comment }} </a> </li><br><br>
+    <li class="comment" style="list-style-type:none;"><a href="{% url 'profile' comment.user.id %}"><b>{{comment.user.username}}</a> posted on {{comment.date_added|slice:":-2"}}</b><br>{{ comment.comment }} </a>
+   </li><br>
   
     {% endfor %}
     {% endfor %}

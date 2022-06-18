@@ -11,9 +11,8 @@ from datetime import datetime, timezone, timedelta
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.paginator import Paginator
-
 
 
 def index(request):
@@ -139,14 +138,15 @@ def get_swim_spot(request, id):
     water_quality = swim.values_list('wq_id', flat=True)
     print(water_quality[0])
     update_water_quality(request, water_quality[0])
-    commentos = Comment.objects.filter(swim_id=id)
+    commentos = Comment.objects.filter(swim_id=id).order_by('-date_added')
     comments = commentos.values_list('user', 'comment', 'id', 'date_added')
     phot = Photo.objects.filter(swim_id=id)
     photo = phot.values_list('image')
     location = list(Location.objects.filter(swimspot=id).order_by('name').values())
     location_json = json.dumps(location)
-    
-    print("comment data", comments)
+    swimmo = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
+    saved = swimmo.values_list('swim_id')
+  
  
     return render(request, "swimspot.html", {
         "photo": photo,
@@ -154,7 +154,8 @@ def get_swim_spot(request, id):
         "swims": swims,
         "comments": comments,
         "locations": location_json,
-        "commentos": commentos
+        "commentos": commentos,
+        "saved": saved
     })    
  
 
@@ -200,16 +201,27 @@ def add_listing(request):
 @login_required()
 def save_swim(request, id):
         this = SwimSpot.objects.get(id=id)
-        swi = SavedSwims()
-        swi.user = request.user.id
-        swi.swim_id = this
-        swi.save()
-        return redirect('getswims') #save swims html still needs to be made 
+        saved = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
+        if saved:
+            saved.delete()
+        else:    
+            swi = SavedSwims()
+            swi.user = request.user.id
+            swi.swim_id = this
+            swi.save()
+        scount = False    
+        if saved.count() > 0:
+            scount = True 
+        ifsaved = {
+        'scount': scount }
+        return JsonResponse({"ifsaved": ifsaved}, status=200)  #this is supposed to serialise the boolean and send it to the page 
 
 @login_required()
 def get_saved_swims(request):
     swimmo = SavedSwims.objects.filter(user=request.user.id)
     saved_swims = swimmo.values_list('user', 'swim_id')
+
+    
     return render(request, "saved.html", {
         "saved_swims": saved_swims
     })
@@ -219,12 +231,10 @@ def get_saved_swims(request):
 def comment(request, id):
     if request.method == 'POST':     
         this = SwimSpot.objects.get(id=id)
-        print("this should be the listing id", this.id)
         commentie = Comment()
         commentie.comment = request.POST.get('comment')
         commentie.user = request.user
         commentie.swim_id = this
-        print("fdhjfd: ", commentie.swim_id)
         commentie.save()
         return redirect('get', id=id)
 
@@ -250,9 +260,6 @@ def add_photo(request, id):
     'this' : this
     })
   
-def success(request):
-    return HttpResponse('successfully uploaded')
-
 
 def get_profile(request, id):
     form = PicForm()
@@ -270,10 +277,12 @@ def get_profile(request, id):
     try:   
         prof = UserProfile.objects.filter(pk=u1)
     except UserProfile.DoesNotExist:
-        prof = None
-    print("this is prof, ", prof)    
+        prof = None 
     if prof.count() == 0:
-        return edit_profile(request, id)    
+        if request.user == u1:
+            return edit_profile(request, id)   
+        else:
+            return render(request, 'notfound.html')   
     return render(request, 'profilepage.html', {'prof': prof,
     'form': form,
     'photo': photo,
@@ -283,7 +292,6 @@ def edit_profile(request, id):
     prof = UserProfile()
     u1 = User.objects.get(id=id)
     content = UserProfile.objects.filter(pk=u1)
-    print("this is content yo", content)
     if request.method == 'GET':
         if content.count() == 0:
             formie = UPForm()
@@ -329,7 +337,6 @@ def add_profile_pic(request, id):
                 new_pp = ProfilePic()
                 new_pp.user_id = request.user.id
                 new_pp.image = pic_f.cleaned_data["image"]
-                print(new_pp)
                 new_pp.save()
                 return HttpResponseRedirect(url)
         except ProfilePic.DoesNotExist:
@@ -337,7 +344,6 @@ def add_profile_pic(request, id):
                 new_pp = ProfilePic()
                 new_pp.user_id = request.user.id
                 new_pp.image = pic_f.cleaned_data["image"]
-                print(new_pp)
                 new_pp.save()
                 return HttpResponseRedirect(url)
 

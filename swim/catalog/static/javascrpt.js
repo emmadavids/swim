@@ -23,3 +23,60 @@ function ppView() {
     changePP.style.display = "none";
   }
 }
+
+
+      let saver = document.querySelector('.save') // 
+            console.log("saver", saver)
+            let saveId = saver.id.slice(4, saver.id.length)
+            console.log("this is saveID" + saveId)
+            
+            saver.onclick = function () {
+
+                save(saveId)
+
+if (document.querySelector(`#save${saveId}`)?.style.display== 'block') {
+    document.querySelector(`#unsave${saveId}`).style.display = 'none'
+  } else {
+
+  document.querySelector(`#save${saveId}`).style.display = 'block' }
+            }
+
+            function save(id) {
+              fetch(`/save_swim/${id}`, { //calls the django function on the id passed in
+                  method: 'GET',
+                  credentials: 'same-origin',
+                  headers : { 
+                      "X-CSRFToken": getCookie("csrftoken")
+                     }
+              })
+              .then(response => { return response.json() } //
+          )
+              .then( data => {
+                  sBut = document.querySelector(`#save${id}`)
+                
+                  if (data["ifsaved"] === True) {
+                      console.log("true")
+                      sbut.innerHTML = `hellloooooooooo`
+                  } else
+                   {   sbut.innerHTML = "poo poo pooo pooooooooooooo"
+                      console.log("false")
+                     
+                    }
+              
+          })}
+          
+          function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;} 
+                  

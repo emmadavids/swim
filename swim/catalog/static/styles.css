@@ -92,48 +92,24 @@ a {
 
 }
 .comment {
-    border: black 1px solid;
-    padding: 25px;
+    border: blanchedalmond 2px solid;
+    padding: 7px;
+    border-radius: 8px;
+    background-color: white;
+    
 }
 
 #swimspot {
     background-color: rgb(216, 247, 236);
-    padding: 25px;   
-    border-radius: 25px;
+    padding: 19px;   
+    border-radius: 8px;
 }
 
-  .gallery {
-    height: 270px;
-    width: 50%;
-    margin-left: 50px !important;
-    margin-top: 65px !important; 
-    margin-right: 100px !important;
-    padding: 50px;
-    background: seashell;
-    box-shadow: 0 1px 1px rgba(0,0,0,.1);
-    position: relative;
-    border-radius: 25px;
-  }
-  
-  .gallery > div {
-    float: left; 
-  }
-  
-  .gallery > div > img {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    overflow: hidden !important;
-    display: block !important;
-    transition: .1s transform;
-    transform: translateZ(0); /* hack */
-    padding-top: 25px; 
-  }
   
 .intro {
   background-color: seashell;
   padding: 25px;
-  border-radius: 25px;
+  border-radius: 8px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-left: 20px;
   margin-right: 45px;
@@ -144,7 +120,7 @@ a {
   background-color: seashell;
   padding: 45px;
   margin: 30px;
-  border-radius: 25px;
+  border-radius: 2px;
 }
 
   #allpix {
@@ -156,30 +132,20 @@ a {
   #ppic {
     border: 2px solid aquamarine;
     height: 250px;
-  
-   
   }
   
-  .gallery > div:hover {
-    z-index: 10;
-    position: sticky;
-  }
-  
-  .gallery > div:hover > img {
-    transform: scale(3.4,3.4);
-    transition: .3s transform;
-    z-index: 10;
-    position: sticky;
-    
-  }
+
 
 .searchform {
   padding: 50px;
   background: seashell;
   margin-right: 300px;
-  border-radius: 25px;
+  border-radius: 8px;
 }
 
+.carousel {
+  margin-top: 10px;
+}
   
   .cf:before, .cf:after {
     display: table;
@@ -196,10 +162,18 @@ a {
 
   }
 
+  #map {
+    margin-top: 20px;
+    border:2px solid blanchedalmond;
+    border-radius: 8px;
+  }
+
   .comments {
     background-color: seashell;
     margin-top: -10px;
-    border-radius: 25px;
+    margin-left: -10px;
+    border-radius: 8px; 
+    margin-bottom: 20px;
   }
 
   .smallscreen {
@@ -230,6 +204,7 @@ a {
 
 .map {
   height: 450px;
+
 }
 
 .whale {
