@@ -34,11 +34,7 @@ function ppView() {
 
                 save(saveId)
 
-if (document.querySelector(`#save${saveId}`)?.style.display== 'block') {
-    document.querySelector(`#unsave${saveId}`).style.display = 'none'
-  } else {
 
-  document.querySelector(`#save${saveId}`).style.display = 'block' }
             }
 
             function save(id) {
@@ -56,15 +52,16 @@ if (document.querySelector(`#save${saveId}`)?.style.display== 'block') {
                 
                   if (data["ifsaved"] === True) {
                       console.log("true")
-                      sbut.innerHTML = `hellloooooooooo`
+                      sbut.innerHTML = `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
                   } else
-                   {   sbut.innerHTML = "poo poo pooo pooooooooooooo"
+                   {   sbut.innerHTML =  `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
                       console.log("false")
                      
                     }
               
           })}
-          
+
+
           function getCookie(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {

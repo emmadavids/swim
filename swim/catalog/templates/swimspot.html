@@ -15,14 +15,15 @@
 <p style="color: darkgray; font-size: 12px;">
 Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated %}  <div id="save{{i.0}}" class="unsave">
 {% if i.0 in saved.0 %}
 <br><button type="button" id="save{{i.0}}" class="unsave pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Unsave this swim</a></button>
 {% else %}
-<br><button type="button" id="save{{i.0}}" class="save pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swimspot</a></button> 
-{% endif %}
-<br><button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Upload a photo of this swimspot</a></button><br><br>
+<br><button type="button" id="save{{i.0}}" class="save pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swimspot</a></button>
 
+{% endif %}
+</div>
+<br><button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Upload a photo of this swimspot</a></button><br><br>
 <p style="color: darkgray; font-size: 12px;">Saved swims will appear under "my profile".</p>
 {% endif %}
 
