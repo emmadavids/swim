@@ -37,29 +37,46 @@ function ppView() {
 
             }
 
-            function save(id) {
-              fetch(`/save_swim/${id}`, { //calls the django function on the id passed in
-                  method: 'GET',
-                  credentials: 'same-origin',
-                  headers : { 
-                      "X-CSRFToken": getCookie("csrftoken")
-                     }
+function save(id) {
+  $.ajax({
+      method: "POST",
+      url: `../../catalog/save_swim/${id}/`,
+      headers : {  "X-CSRFToken": getCookie("csrftoken")  },
+      data: {},
+      success: function(data) {
+      console.log(data) // check out how data is structured
+        
+      $('.savo').hide().replaceWith("titty bum bum")
+                }
               })
-              .then(response => { return response.json() } //
-          )
-              .then( data => {
-                  sBut = document.querySelector(`#save${id}`)
+            };
+
+
+
+
+          //   function save(id) {
+          //     fetch(`/save_swim/${id}/`, { //calls the django function on the id passed in
+          //         method: 'PUT',
+          //         credentials: 'same-origin',
+          //         headers : { 
+          //             "X-CSRFToken": getCookie("csrftoken")
+          //            }
+          //     })
+          //     .then(response => { return response.json() } //
+          // )
+          //     .then( data => {
+          //         sBut = document.querySelector(`#save${id}`)
                 
-                  if (data["ifsaved"] === True) {
-                      console.log("true")
-                      sbut.innerHTML = `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
-                  } else
-                   {   sbut.innerHTML =  `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
-                      console.log("false")
+          //         if (data["ifsaved"] === True) {
+          //             console.log("true")
+          //             sbut.innerHTML = `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
+          //         } else
+          //          {   sbut.innerHTML =  `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
+          //             console.log("false")
                      
-                    }
+          //           }
               
-          })}
+          // })}
 
 
           function getCookie(name) {

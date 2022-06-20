@@ -15,11 +15,11 @@
 <p style="color: darkgray; font-size: 12px;">
 Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
 
-{% if user.is_authenticated %}  <div id="save{{i.0}}" class="unsave">
+{% if user.is_authenticated %}  <div id="save{{i.0}}" class="save">
 {% if i.0 in saved.0 %}
-<br><button type="button" id="save{{i.0}}" class="unsave pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Unsave this swim</a></button>
+<br><button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Unsave this swim</a></button>
 {% else %}
-<br><button type="button" id="save{{i.0}}" class="save pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swimspot</a></button>
+<br><button type="button" id="save{{i.0}}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' i.0 %}">Save this swimspot</a></button>
 
 {% endif %}
 </div>
