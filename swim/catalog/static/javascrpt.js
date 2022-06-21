@@ -1,15 +1,3 @@
-function myFunction(imgs) {
-    // Get the expanded image
-    var expandImg = document.getElementById("expandedImg");
-    // Get the image text
-    var imgText = document.getElementById("imgtext");
-    // Use the same src in the expanded image as the image being clicked on from the grid
-    expandImg.src = imgs.src;
-    // Use the value of the alt attribute of the clickable image as text inside the expanded image
-    imgText.innerHTML = imgs.alt;
-    // Show the container element (hidden with CSS)
-    expandImg.parentElement.style.display = "block";
-  }
 
 const changePP = document.getElementById("changepp")
 const buttonPP = document.getElementsByClassName('pbt')
@@ -25,6 +13,7 @@ function ppView() {
 }
 
 
+document.addEventListener('DOMContentLoaded', function() { 
       let saver = document.querySelector('.save') // 
             console.log("saver", saver)
             let saveId = saver.id.slice(4, saver.id.length)
@@ -36,7 +25,7 @@ function ppView() {
 
 
             }
-
+          })
 function save(id) {
   $.ajax({
       method: "POST",
@@ -45,38 +34,19 @@ function save(id) {
       data: {},
       success: function(data) {
       console.log(data) // check out how data is structured
-        
-      $('.savo').hide().replaceWith("titty bum bum")
+      
+      if (data["ifsaved"]["scount"] === true) {
+       
+        $('.savo').hide().replaceWith(`<button type="button" id="save${id}" class="savo pbt btn btn-outline-info">Unsave this swim</button>`)
+    } else
+     {         
+      $('.savo').hide().replaceWith(`<button type="button" id="save${id}" class="savo pbt btn btn-outline-info">Save this swim</button>`)
+       
+      } 
+  
                 }
               })
             };
-
-
-
-
-          //   function save(id) {
-          //     fetch(`/save_swim/${id}/`, { //calls the django function on the id passed in
-          //         method: 'PUT',
-          //         credentials: 'same-origin',
-          //         headers : { 
-          //             "X-CSRFToken": getCookie("csrftoken")
-          //            }
-          //     })
-          //     .then(response => { return response.json() } //
-          // )
-          //     .then( data => {
-          //         sBut = document.querySelector(`#save${id}`)
-                
-          //         if (data["ifsaved"] === True) {
-          //             console.log("true")
-          //             sbut.innerHTML = `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
-          //         } else
-          //          {   sbut.innerHTML =  `<br><button type="button" id="save${id}" class="pbt btn btn-outline-info"><a href="{% url 'save_swim' ${id} %}">Save this swim</a></button>`
-          //             console.log("false")
-                     
-          //           }
-              
-          // })}
 
 
           function getCookie(name) {

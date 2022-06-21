@@ -201,24 +201,25 @@ def add_listing(request):
 @login_required()
 def save_swim(request, id):
         this = SwimSpot.objects.get(id=id)
-        saved = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
-        if saved:
-            saved.delete()
-        else:    
-            swi = SavedSwims()
-            swi.user = request.user.id
-            swi.swim_id = this
-            swi.save()
+        saved = SavedSwims.objects.filter(user=request.user).filter(swim_id=id)
         scount = False    
         if saved.count() > 0:
             scount = True 
         ifsaved = {
         'scount': scount }
+        if saved:
+            saved.delete()
+        else:    
+            swi = SavedSwims()
+            swi.user = request.user
+            swi.swim_id = this
+            swi.save()
+        print("saved swim function has been called")
         return JsonResponse({"ifsaved": ifsaved}, status=200)  #this is supposed to serialise the boolean and send it to the page 
 
 @login_required()
-def get_saved_swims(request):
-    swimmo = SavedSwims.objects.filter(user=request.user.id)
+def get_saved_swims(request, id):
+    swimmo = SavedSwims.objects.filter(user=request.user) #change this to take in a parameter that reflects users id
     saved_swims = swimmo.values_list('user', 'swim_id')
 
     
@@ -265,7 +266,7 @@ def get_profile(request, id):
     form = PicForm()
     u1 = User.objects.get(id=id)
     try:
-        swimmo = SavedSwims.objects.filter(user=id)
+        swimmo = SavedSwims.objects.filter(user=u1)
     except SavedSwims.DoesNotExist:
         swimmo = None
     if swimmo is not None:
@@ -282,7 +283,8 @@ def get_profile(request, id):
         if request.user == u1:
             return edit_profile(request, id)   
         else:
-            return render(request, 'notfound.html')   
+            return render(request, 'notfound.html')  
+    print(saved_swims)         
     return render(request, 'profilepage.html', {'prof': prof,
     'form': form,
     'photo': photo,
