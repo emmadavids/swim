@@ -13,7 +13,7 @@ function ppView() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() { 
+
       let saver = document.querySelector('.save') // 
             console.log("saver", saver)
             let saveId = saver.id.slice(4, saver.id.length)
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             }
-          })
+        
 function save(id) {
   $.ajax({
       method: "POST",

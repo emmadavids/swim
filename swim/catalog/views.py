@@ -146,7 +146,8 @@ def get_swim_spot(request, id):
     location_json = json.dumps(location)
     swimmo = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
     saved = swimmo.values_list('swim_id')
-  
+    print("commentos", commentos)
+    print("comments", comments)
  
     return render(request, "swimspot.html", {
         "photo": photo,
@@ -271,6 +272,7 @@ def get_profile(request, id):
         swimmo = None
     if swimmo is not None:
         saved_swims = swimmo.values_list('user', 'swim_id')
+      
     try:
         photo = ProfilePic.objects.get(user_id=u1)
     except ProfilePic.DoesNotExist:
@@ -288,7 +290,8 @@ def get_profile(request, id):
     return render(request, 'profilepage.html', {'prof': prof,
     'form': form,
     'photo': photo,
-    'saved_swims': saved_swims})
+    'saved_swims': saved_swims,
+    'swimmo': swimmo})
 
 def edit_profile(request, id):
     prof = UserProfile()

@@ -47,11 +47,10 @@
            
   <div class="container">
 
-    {% for i in saved_swims %}
-  {{i}}
- 
-       <a href="{% url 'get' i.1 %}" class="pbt btn btn-outline-info">{{ i.1}} </a> <br> 
-    
+    {% for i in swimmo %}
+
+<a href="{% url 'get' i.swim_id.id %}" class="pbt btn btn-outline-info">{{ i.swim_id.name}} </a> <br> 
+  
        
     {% endfor %}
     </div>

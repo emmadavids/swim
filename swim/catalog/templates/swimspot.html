@@ -128,8 +128,10 @@ marker.setPopup(popup).togglePopup();
 No comments here yet! Why not add the first one?
 
 {% endif %}
+{{commentos}}
     {% for comment in commentos %}
-
+    
+{{comment.swim_id.name}} hehel;ek
     <li class="comment" style="list-style-type:none;"><a href="{% url 'profile' comment.user.id %}"><b>{{comment.user.username}}</a> posted on {{comment.date_added|slice:":-2"}}</b><br>{{ comment.comment }} </a>
    </li><br>
   
