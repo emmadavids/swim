@@ -24,6 +24,7 @@ urlpatterns = [
  path("edit/<int:id>", views.edit_profile, name='edit'),    
  path("allpix/<int:id>", views.all_photos, name='allpix'), 
 
+
  
 #  path('photo/<int:pk>/delete/', PhotoDeleteView.as_view(), name='delete'),
 ]

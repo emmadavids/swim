@@ -5,25 +5,26 @@
   <div class="row">
     <div id="swimspot" class="col-md">
     
-    {% for i in swims %}
-<h4>{{i.1}}</h4>
-<p>{{i.2}}</p>
+    {% for i in swims %} 
+<h3><b>{{i.1}}</b></h3><br>
+<p class="desc">{{i.2}}</p><div class="bullets">
 <br><b>Toilets:</b> {% if i.3 %} Yes {% else %} No {% endif %}
 <br><b>Cafe:</b> {% if i.4%} Yes {% else %} No {% endif %}
 <br><b>Bathing Quality:</b> {{i.5}}
-<br><b>Suitable for long distance training:</b> {% if i.6 %} Yes {% else %} No {% endif %}<br><br>
+<br><b>Suitable for long distance training:</b> {% if i.6 %} Yes {% else %} No {% endif %}</div><br><br>
 <p style="color: darkgray; font-size: 12px;">
 Water quality data provided by the Environment Agency.  Licensed under the Open Government Licence v3.0</p>
 
 {% if user.is_authenticated %}  <div id="save{{i.0}}" class="save">
+
+</div>
+<button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Add To Photos</a></button>
 {% if i.0 in saved.0 %}
-<br><button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info">Unsave this swim</button>
+<button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info btn-sm">Unsave</button>
 {% else %}
-<br><button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info">Save this swimspot</button>
+<button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info btm-sm">Save</button>
 
 {% endif %}
-</div>
-<br><button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Upload a photo of this swimspot</a></button><br><br>
 <p style="color: darkgray; font-size: 12px;">Saved swims will appear under "my profile".</p>
 {% endif %}
 
@@ -122,22 +123,22 @@ marker.setPopup(popup).togglePopup();
 
   <br>
   {% endif %}
+  {% if not commentos %}
 
-{% if not commentos %}
-
-No comments here yet! Why not add the first one?
-
-{% endif %}
-{{commentos}}
-    {% for comment in commentos %}
-    
-{{comment.swim_id.name}} hehel;ek
-    <li class="comment" style="list-style-type:none;"><a href="{% url 'profile' comment.user.id %}"><b>{{comment.user.username}}</a> posted on {{comment.date_added|slice:":-2"}}</b><br>{{ comment.comment }} </a>
-   </li><br>
+  No comments here yet! Why not add the first one?
   
-    {% endfor %}
-    {% endfor %}
- 
+  {% endif %}
+  
+      {% for comment in commentos %}
+      
+  
+      <li class="comment" style="list-style-type:none;"><a href="{% url 'profile' comment.user.id %}"><b>{{comment.user.username}}</a> posted on {{comment.date_added|slice:":-2"}}</b><br>{{ comment.comment }} </a>
+     </li><br>
+    
+      {% endfor %}
+      {% endfor %}
+   
+  
+    </div>
 
-  </div>
 {% endblock %}

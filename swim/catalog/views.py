@@ -139,27 +139,21 @@ def get_swim_spot(request, id):
     print(water_quality[0])
     update_water_quality(request, water_quality[0])
     commentos = Comment.objects.filter(swim_id=id).order_by('-date_added')
-    comments = commentos.values_list('user', 'comment', 'id', 'date_added')
     phot = Photo.objects.filter(swim_id=id)
     photo = phot.values_list('image')
     location = list(Location.objects.filter(swimspot=id).order_by('name').values())
     location_json = json.dumps(location)
     swimmo = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
     saved = swimmo.values_list('swim_id')
-    print("commentos", commentos)
-    print("comments", comments)
- 
     return render(request, "swimspot.html", {
         "photo": photo,
         "phot": phot,
         "swims": swims,
-        "comments": comments,
         "locations": location_json,
         "commentos": commentos,
         "saved": saved
     })    
  
-
 
 def search(request):
     """ search function  """
@@ -239,7 +233,6 @@ def comment(request, id):
         commentie.swim_id = this
         commentie.save()
         return redirect('get', id=id)
-
 
 
 @login_required()
@@ -352,5 +345,3 @@ def add_profile_pic(request, id):
                 new_pp.save()
                 return HttpResponseRedirect(url)
 
-
-            

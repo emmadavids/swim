@@ -37,7 +37,7 @@
                 </a>
                     <div class="card-body">
                       <h5 class="card-title"> <a href="{% url 'get' i.0 %}">{{i.1}}</a></h5>
-                      <p class="card-text">{{i.3}}</p>
+                      <p class="card-text">{{i.3|slice:":165"}}...</p>
                       <p class="card-text"><small class="text-muted">ipsum lorem</small></p>
                     </div>
                   </div>

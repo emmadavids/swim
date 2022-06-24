@@ -9,6 +9,15 @@ body {
     background:white;
   }
   
+.bullets {
+  margin-left: 10px;
+}  
+.desc {
+  background: white;
+  border: #3acec2 1px solid;
+  padding: 7px;
+  border-radius: 8px;
+}
 
 .sidebar-nav {
     padding: 0;
