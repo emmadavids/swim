@@ -18,11 +18,11 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 {% if user.is_authenticated %}  <div id="save{{i.0}}" class="save">
 
 </div>
-<button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Add To Photos</a></button>
+<button type="button" class="btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Add a Photo</a></button>     
 {% if i.0 in saved.0 %}
-<button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info btn-sm">Unsave</button>
+<button type="button" id="save{{i.0}}" class="savo btn btn-outline-info btn-sm">Unsave</button>
 {% else %}
-<button type="button" id="save{{i.0}}" class="savo pbt btn btn-outline-info btm-sm">Save</button>
+<button type="button" id="save{{i.0}}" class="savo btn btn-outline-info btm-sm">Save</button>
 
 {% endif %}
 <p style="color: darkgray; font-size: 12px;">Saved swims will appear under "my profile".</p>

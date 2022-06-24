@@ -14,8 +14,8 @@ body {
 }  
 .desc {
   background: white;
-  border: #3acec2 1px solid;
-  padding: 7px;
+  border: blanchedalmond 1px solid; 
+  padding: 10px;
   border-radius: 8px;
 }
 
@@ -108,7 +108,7 @@ a {
 }
 
 #swimspot {
-    background-color: rgb(216, 247, 236);
+    background-color: seashell;
     padding: 19px;   
     border-radius: 8px;
 }
@@ -142,7 +142,9 @@ a {
     height: 250px;
   }
   
-
+.savo {
+  margin-left: 10px;
+}
 
 .searchform {
   padding: 50px;
@@ -193,7 +195,10 @@ a {
     .lgscreen {
       display: none;
   }
-
+  body {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
   .smallscreen {
     display: block;
     position: absolute;
@@ -211,7 +216,7 @@ a {
   }
 
 .map {
-  height: 450px;
+  height: 240px;
 
 }
 
