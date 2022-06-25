@@ -24,21 +24,17 @@ def index(request):
             for item in ['distance_suitable', 'cafe', 'toilets']:
                 if f.cleaned_data.get(item) is True:
                     filter_parameters[item] = True
-            print('params')
-            print(filter_parameters)
             swimspots = SwimSpot.objects.filter(**filter_parameters)
             form = None          
     else:
         form = FilterForm()
         swimspots = SwimSpot.objects.all().order_by('id') #gets all swimspots 
-    vals = swimspots.values_list('id', 'name', 'is_approved', 'description')
+    vals = swimspots.values_list('id', 'name', 'water_quality', 'is_approved', 'description')
     listo = []
     for item in vals:
         henlo = list(Photo.objects.filter(swim_id=item[0])[:1])
-        print("this is henlo", henlo)
         objects = list(chain(item, henlo))
         listo.append(objects)
-    print("this is listo: ", listo)
     paginator = Paginator(listo, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)    
@@ -116,7 +112,6 @@ def update_water_quality(request, wqid):
     url = 'https://environment.data.gov.uk/doc/bathing-water/{0}.json'.format(wqid)
     swim = SwimSpot.objects.get(wq_id=wqid)
     response = requests.get(url)
-    print("this is the response", response)
     if response.status_code != 200:
         swim.water_quality = "Sorry, water quality data for this swim location is not currently available"
         swim.save()
@@ -136,7 +131,6 @@ def get_swim_spot(request, id):
     swim = SwimSpot.objects.filter(id=id)
     swims = swim.values_list('id', 'name', 'description', 'toilets', 'cafe', 'water_quality', 'distance_suitable')
     water_quality = swim.values_list('wq_id', flat=True)
-    print(water_quality[0])
     update_water_quality(request, water_quality[0])
     commentos = Comment.objects.filter(swim_id=id).order_by('-date_added')
     phot = Photo.objects.filter(swim_id=id)
@@ -168,7 +162,6 @@ def search(request):
 def view_on_map(request):
     location_list = list(Location.objects.order_by('name').values()) 
     location_json = json.dumps(location_list)  
-    print(location_json)
     context = {'locations': location_json} 
     return render(request, 'mapview.html', context) 
 
@@ -209,7 +202,6 @@ def save_swim(request, id):
             swi.user = request.user
             swi.swim_id = this
             swi.save()
-        print("saved swim function has been called")
         return JsonResponse({"ifsaved": ifsaved}, status=200)  #this is supposed to serialise the boolean and send it to the page 
 
 @login_required()

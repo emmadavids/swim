@@ -1,7 +1,7 @@
 {% extends 'base_generic.html' %}
 {% block content %}
 <div class="uploadform col-md">
-<h2> Uploading a photo of {{this.name}} </h2>
+<h2> Thank-you for your submission. Why not add a photo below? Or click here navigate back to home page</h2>
 
     <br><br>
     <form action="{% url 'addphoto' this.id %}" method = "post" enctype="multipart/form-data">

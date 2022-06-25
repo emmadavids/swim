@@ -9,6 +9,49 @@ body {
     background:white;
   }
   
+ 
+
+  button, .clearablefileinput {
+    background-color: #e1ecf4 !important;
+    border-radius: 3px;
+    border: 1px solid #7aa7c7;
+    box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #39739d;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    padding: 8px .8em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+  }
+  
+  button:hover,
+  button:focus {
+    background-color: #b3d3ea;
+    color: #2c5777;
+  }
+  
+  button:focus {
+    box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+  }
+  
+  button:active {
+    background-color: #a0c7e4;
+    box-shadow: none;
+    color: #2c5777;
+  }
 .bullets {
   margin-left: 10px;
 }  
@@ -18,7 +61,9 @@ body {
   padding: 10px;
   border-radius: 8px;
 }
-
+.uploadform {
+  margin-right: 260px !important;
+}
 .sidebar-nav {
     padding: 0;
     list-style: none;
@@ -113,6 +158,10 @@ a {
     border-radius: 8px;
 }
 
+.map {
+  margin-right:200px;
+}
+
   
 .intro {
   background-color: seashell;
@@ -174,6 +223,7 @@ a {
 
   #map {
     margin-top: 20px;
+  
     border:2px solid blanchedalmond;
     border-radius: 8px;
   }

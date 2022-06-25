@@ -6,7 +6,7 @@ from django.forms import ModelForm
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth import get_user_model
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset
+from crispy_forms.layout import Layout, Fieldset, Submit
 
 
 class User(AbstractUser):
@@ -136,6 +136,18 @@ class UPForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ['events_completed', 'training_for', 'blurb']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'first arg is the legend of the fieldset',
+                'events_completed',
+                'training_for',
+                'blurb',
+            ),
+            Submit('submit', 'Submit', css_class='button white'),
+        )
 
 class ProfilePic(models.Model):
     user = models.OneToOneField(

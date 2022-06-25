@@ -9,12 +9,12 @@
         <p>
   If you swim in open water somewhere not listed here, why not add it to the database?
   In the description, please think about whether the location is suitable for distance/triathlon training or more just for paddling or a cooling dip.
-  If the toilets/cafe are a short walk away or not in an obvious location, please add this to the description. </p>
+  If the toilets/cafe are a short walk away or not in an obvious location, please add this to the description. On the next page you will have an option to add a photo. </p>
 </div></div>
     <form class="form-group" method="post" novalidate>
         {% csrf_token %}
-    
-        {{ form }}
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
        
         <button type="submit">Submit</button>
       </form>

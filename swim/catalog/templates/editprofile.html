@@ -4,7 +4,8 @@
 
 
   <form action="{% url 'edit' u1.id %}" method="POST">
-    {{form}}
+    {% load crispy_forms_tags %}
+    {{form|crispy}}
     {% csrf_token %} 
     <input type="submit" name="submit" value="Submit">
 </form>

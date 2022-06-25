@@ -24,7 +24,7 @@
     <div class="card-deck">
    {% for i in page_obj.object_list %}  
 
-      {% if i.2 %}
+      {% if i.3 %}
       
    
               
@@ -33,12 +33,12 @@
                 
                   <div class="card" style="max-width: 24.5rem;">
                     <a href="{% url 'get' i.0 %}">
-                      <img class="card-img-top" src="../../{{ i.4.image }}" alt="Card image cap">
+                      <img class="card-img-top" src="../../{{ i.5.image }}" alt="Card image cap">
                 </a>
                     <div class="card-body">
                       <h5 class="card-title"> <a href="{% url 'get' i.0 %}">{{i.1}}</a></h5>
-                      <p class="card-text">{{i.3|slice:":165"}}...</p>
-                      <p class="card-text"><small class="text-muted">ipsum lorem</small></p>
+                      <p class="card-text">{{i.4|slice:":165"}}...</p>
+                      <p class="card-text"><small class="text-muted">Water quality: {{i.2}}</small></p>
                     </div>
                   </div>
 
