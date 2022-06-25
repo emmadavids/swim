@@ -1,0 +1,21 @@
+tasks:
+  - before: |
+      pip3 install virtualenv
+      virtualenv .venv
+      source .venv/bin/activate
+      pip3 install --upgrade pip wheel setuptools
+      python3 -m pip install Django
+      pip3 install --user django-crispy-forms
+      python3 -m pip install --upgrade Pillow
+    command: |
+      cd swim
+      python3 manage.py runserver
+  
+ports:
+  - port: 8000
+    visibility: private
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - ms-python.python
