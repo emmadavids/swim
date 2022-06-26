@@ -20,9 +20,9 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 </div>
 <button type="button" class="pbt btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Add a Photo</a></button>     
 {% if i.0 in saved.0 %}
-<button type="button" id="save{{i.0}}" class="savo btn btn-outline-info btn-sm">Unsave</button>
+<button type="button" id="save{{i.0}}" onclick="save(this.id)" class="savo btn btn-outline-info btn-sm">Unsave</button>
 {% else %}
-<button type="button" id="save{{i.0}}" class="savo btn btn-outline-info btm-sm">Save</button>
+<button type="button" id="save{{i.0}}"  onclick="save(this.id)" class="savo btn btn-outline-info btm-sm">Save</button>
 
 {% endif %}
 <p style="color: darkgray; font-size: 12px;">Saved swims will appear under "my profile".</p>
@@ -51,6 +51,8 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
     <div class="carousel-item">
       {% endif %}
       <img class="d-block w-100" src="../../{{obj.0}}" alt="slide">
+    <center> <h5>Submitted by {{obj.1.username}}</h5>
+      <p>{{obj.2}}</p><br>{{obj.3}}</center> 
     </div>
   
     {% endfor %} 
@@ -122,6 +124,8 @@ marker.setPopup(popup).togglePopup();
   </form>
 
   <br>
+  {% else %}
+  <a href="{% url 'login' %}">Log in</a> to post a comment!<br><br>
   {% endif %}
   {% if not commentos %}
 

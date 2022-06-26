@@ -28,7 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -100,6 +104,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'swim.wsgi.application'
+
+CSRF_TRUSTED_ORIGINS = [
+'https://8000-emmadavids-swim-ak9razkewku.ws-eu47.gitpod.io' 
+]
 
 
 # Database

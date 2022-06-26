@@ -240,6 +240,15 @@ a {
     display: none;
   }
 
+  @media screen and (max-width: 1670px) {
+    col-sm {
+      max-width: 400px !important;
+    }
+    .map {
+      margin-left: -16px;
+    }
+  }
+
   
   @media screen and (max-width: 600px) {
     .lgscreen {

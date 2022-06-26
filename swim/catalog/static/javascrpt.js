@@ -17,7 +17,7 @@ function ppView() {
       let saver = document.querySelector('.save') // 
             console.log("saver", saver)
             let saveId = saver.id.slice(4, saver.id.length)
-            console.log("this is saveID" + saveId)
+            console.log("this is saveID: " + saveId)
             
             saver.onclick = function () {
 
@@ -36,10 +36,10 @@ function save(id) {
       console.log(data) // check out how data is structured
       
       if (data["ifsaved"]["scount"] === true) {
-       
+        console.log('fired')
         $('.savo').hide().replaceWith(`<button type="button" id="save${id}" class="savo pbt btn btn-outline-info btn-sm">Unsave</button>`)
     } else
-     {         
+     {       console.log('fired')   
       $('.savo').hide().replaceWith(`<button type="button" id="save${id}" class="savo pbt btn btn-outline-info btn-sm">Save</button>`)
        
       } 
