@@ -1,15 +1,7 @@
 {% extends 'base_generic.html' %}
 {% block content %}
 <div class="uploadform col-md">
-<h2> Thank-you for your submission. Why not add a photo below? Or click here navigate back to home page</h2>
-
-    <br><br>
-    <form action="{% url 'addphoto' this.id %}" method = "post" enctype="multipart/form-data">
-        {% load crispy_forms_tags %}
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Upload</button>
-    </form>
+<h2> Thank-you for your submission.</h2> It is currently awaiting approval by a site admin. Why not click <a href="{% url 'addphoto' id %}">here</a> to add a photo? Or click <a href="{% url 'index' %}">here</a> to navigate back to home page.
 
 </div>
 {% endblock %}

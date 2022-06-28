@@ -240,17 +240,20 @@ a {
     display: none;
   }
 
-  @media screen and (max-width: 1670px) {
-    col-sm {
-      max-width: 400px !important;
+  @media screen and (max-width: 1400px) {
+    .col-md {
+      max-width:450px !important;
     }
-    .map {
-      margin-left: -16px;
+
+
+    #map {
+   
+      max-width: 95%;
     }
   }
 
   
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 700px) {
     .lgscreen {
       display: none;
   }
@@ -290,6 +293,9 @@ a {
   display: none;
 }
 
+.blurb {
+  display: none;
+}
 .card {
   margin-left: 24px;
 }

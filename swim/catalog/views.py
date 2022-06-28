@@ -110,6 +110,7 @@ def register(request):
 
 def update_water_quality(request, wqid):
     url = 'https://environment.data.gov.uk/doc/bathing-water/{0}.json'.format(wqid)
+    print("this is wqid", wqid)
     swim = SwimSpot.objects.get(wq_id=wqid)
     response = requests.get(url)
     if response.status_code != 200:
@@ -131,6 +132,7 @@ def get_swim_spot(request, id):
     swim = SwimSpot.objects.filter(id=id)
     swims = swim.values_list('id', 'name', 'description', 'toilets', 'cafe', 'water_quality', 'distance_suitable')
     water_quality = swim.values_list('wq_id', flat=True)
+    print("water quality", water_quality[0])
     update_water_quality(request, water_quality[0])
     commentos = Comment.objects.filter(swim_id=id).order_by('-date_added')
     phot = Photo.objects.filter(swim_id=id)
@@ -179,7 +181,8 @@ def add_listing(request):
             swimmy.toilets = s.cleaned_data.get('toilets')
             swimmy.cafe = s.cleaned_data.get('cafe')
             swimmy.save()
-            return index(request)
+            id = swimmy.id
+            return render(request, 'thankyou.html', {'id':id})
     else:
         form = SwimForm()
     return render(request, 'addlisting.html', {'form': form,
@@ -240,7 +243,10 @@ def add_photo(request, id):
             photo.image = form.cleaned_data.get('image')
             photo.submitter_id = request.user.id
             photo.save()
-            return redirect('get', id=id)
+            if photo.swim_id.is_approved == True:
+                return redirect('get', id=id)
+            else: 
+                return render(request, "submitted.html")    
     else:
         form = PhotoForm()
     return render(request, 'create.html', {'form': form,

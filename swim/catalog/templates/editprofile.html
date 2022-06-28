@@ -1,7 +1,12 @@
 {% extends "base_generic.html" %}
 
-{% block content %}
-
+{% block content %} 
+<div class="container"> 
+  <div class="row"> 
+    <div class="intro col-sm">
+<p>
+Fill out a personal profile below. Let others know what events you have completed, what you are training for and any other cool things about yourself.
+You will have an option to add a photo once you have submitted the below form.</p>
 
   <form action="{% url 'edit' u1.id %}" method="POST">
     {% load crispy_forms_tags %}
@@ -11,7 +16,7 @@
 </form>
 
 
-
+</div></div>
 
       </div>
 {% endblock %}
