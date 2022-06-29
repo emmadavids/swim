@@ -9,7 +9,6 @@ body {
     background:white;
   }
   
- 
 
   button, .clearablefileinput {
     background-color: #e1ecf4 !important;
@@ -241,11 +240,30 @@ a {
   }
 
   @media screen and (max-width: 1400px) {
-    .col-md {
-      max-width:450px !important;
+    
+    body {
+      background-color: aliceblue;
     }
 
+    .cont {
+      position: relative;
+    }
 
+    .swimz {
+      margin-left: 20px;
+    }
+
+    .container {
+      position: absolute;
+      top: 0;
+      left: 200px;
+      max-width: 1000px;
+    }
+    .col-md {
+      max-width:450px !important;
+     
+    }
+ 
     #map {
    
       max-width: 95%;

@@ -1,9 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="container">
+<div class="swimz container">
   <div class="row">
-    <div id="swimspot" class="col-md">
+    <div id="swimspot" class="block col-md">
     
     {% for i in swims %} 
 <h3><b>{{i.1}}</b></h3><br>
@@ -31,9 +31,9 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 
 <br><br><br>
 
-<div id="carouselExampleIndicators" class="col-md carousel slide" data-ride="carousel">
+<div id="carouselExampleIndicators" class="block col-md carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
-    {% for obj in photo %}
+    {% for obj in phot %}
     {% if forloop.first %}
     <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class="active"></li>
     {% else %}
@@ -42,16 +42,16 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
     {% endfor %}
   </ol>
   <div class="carousel-inner">
-    {% for obj in photo %}
+    {% for obj in phot %}
             {% if forloop.first %}
     <div class="carousel-item active">
       {% else %}
     
     <div class="carousel-item">
       {% endif %}
-      <img class="d-block w-100" src="../../{{obj.0}}" alt="slide">
-    <center> <h5>{{obj.3}}</h5>
-      <p><i>{{obj.2}}</i> <br><small>Submitted by {{obj.1.username}}</small></p></center> 
+      <img class="d-block w-100" src="../../{{obj.image}}" alt="slide">
+    <center> <h5>{{obj.title}}</h5>
+      <p><i>{{obj.description}}</i> <br><small>Submitted by {{obj.submitter}} on {{obj.created}}</small></p></center> 
     </div>
   
     {% endfor %} 

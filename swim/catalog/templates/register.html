@@ -2,7 +2,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
+<div class="container"> 
+    <div class="row"> 
+      <div class="intro col-sm">
     <h2>Register</h2>
 
     <form action="{% url 'register' %}" method="post">
@@ -23,6 +25,6 @@
     </form>
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-
+      </div></div></div>
 
 {% endblock %}

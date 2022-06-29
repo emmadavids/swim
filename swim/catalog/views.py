@@ -136,13 +136,11 @@ def get_swim_spot(request, id):
     update_water_quality(request, water_quality[0])
     commentos = Comment.objects.filter(swim_id=id).order_by('-date_added')
     phot = Photo.objects.filter(swim_id=id)
-    photo = phot.values_list('image', 'submitter', 'title', 'description')
     location = list(Location.objects.filter(swimspot=id).order_by('name').values())
     location_json = json.dumps(location)
     swimmo = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
     saved = swimmo.values_list('swim_id')
     return render(request, "swimspot.html", {
-        "photo": photo,
         "phot": phot,
         "swims": swims,
         "locations": location_json,
