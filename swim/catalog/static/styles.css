@@ -186,9 +186,15 @@ a {
   }
 
   #ppic {
-    border: 2px solid aquamarine;
-    height: 250px;
+    /* border: 2px solid aquamarine; */
+    max-height: 250px;
+    max-width: 350px;
   }
+
+.sw {
+  margin-left: -180px;
+
+} 
   
 .savo {
   margin-left: 10px;
@@ -219,6 +225,9 @@ a {
    margin-top: 10px;
 
   }
+ .pfbt {
+ color: #2c5777;
+ }
 
   #map {
     margin-top: 20px;

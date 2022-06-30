@@ -19,7 +19,7 @@
         <p class="card-text"> <br>
           <img id="ppic" src="../../{{ photo.image }}"><br><br>
           {% if request.user.id == prof.0.user.id %}
-    <button type="button" class="pbt btn btn-primary btn-sm" onclick="ppView()">New Profile Pic</button>
+    <button type="button" class="pfbt pbt btn btn-primary btn-sm" onclick="ppView()">New Profile Pic</button>
           <div id="changepp" style="display: none"><br>
             <form action="{% url 'picadd' prof.0.user.id %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
@@ -35,7 +35,7 @@
           Other relevent (or irrelevent) blurb: </strong><br>
           {{prof.0.blurb}}</p><br>
           <br>{% if request.user.id == prof.0.user.id %}
-          <a href="{% url 'edit' prof.0.user.id %}"><button type="button" class="pbt btn btn-primary btn-sm">Edit Profile</button></a>
+          <a href="{% url 'edit' prof.0.user.id %}"><button type="button" class="pfbt pbt btn btn-primary btn-sm">Edit Profile</button></a>
           {% endif %}
           </div></div></div>
           <div class="col-md intro">
@@ -46,10 +46,10 @@
           <br>
            
   <div class="container">
-
+<br><br><br><br>
     {% for i in swimmo %}
 
-<a href="{% url 'get' i.swim_id.id %}" class="pbt btn btn-outline-info">{{ i.swim_id.name}} </a> <br> 
+<a href="{% url 'get' i.swim_id.id %}" class="sw pbt btn btn-outline-info">{{ i.swim_id.name}} </a> <br> 
   
        
     {% endfor %}

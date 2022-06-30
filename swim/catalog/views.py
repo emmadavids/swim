@@ -138,8 +138,10 @@ def get_swim_spot(request, id):
     phot = Photo.objects.filter(swim_id=id)
     location = list(Location.objects.filter(swimspot=id).order_by('name').values())
     location_json = json.dumps(location)
-    swimmo = SavedSwims.objects.filter(user=request.user.id).filter(swim_id=id)
+    swimmo = SavedSwims.objects.filter(user=request.user).filter(swim_id=id)
+    print("swimmo", swimmo)
     saved = swimmo.values_list('swim_id')
+    print("saved zero", saved)
     return render(request, "swimspot.html", {
         "phot": phot,
         "swims": swims,

@@ -18,12 +18,13 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 {% if user.is_authenticated %} 
 
 <button type="button" class="btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Add a Photo</a></button>     
+<div class="save" id="save{{i.0}}">
 {% if i.0 in saved.0 %}
 <button type="button" id="save{{i.0}}" onclick="save(this.id)" class="savo btn btn-outline-info btn-sm">Unsave</button>
 {% else %}
 <button type="button" id="save{{i.0}}"  onclick="save(this.id)" class="savo btn btn-outline-info btm-sm">Save</button>
 
-{% endif %}
+{% endif %}</div>
 <p style="color: darkgray; font-size: 12px;">Saved swims will appear under "my profile".</p>
 {% endif %}
 

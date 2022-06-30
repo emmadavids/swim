@@ -37,10 +37,10 @@ function save(id) {
       
       if (data["ifsaved"]["scount"] === true) {
         console.log('fired')
-        $('.savo').hide().replaceWith(`<button type="button" id="save${id}" class="savo pbt btn btn-outline-info btn-sm">Unsave</button>`)
+        $('.save').hide().replaceWith(`<button type="button" id="save${id}" class="save btn btn-outline-info btn-sm">Unsave</button>`)
     } else
      {       console.log('fired')   
-      $('.savo').hide().replaceWith(`<button type="button" id="save${id}" class="savo pbt btn btn-outline-info btn-sm">Save</button>`)
+      $('.save').hide().replaceWith(`<button type="button" id="save${id}" class="save btn btn-outline-info btn-sm">Save</button>`)
        
       } 
   
