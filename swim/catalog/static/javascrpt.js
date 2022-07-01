@@ -37,10 +37,10 @@ function save(id) {
       
       if (data["ifsaved"]["scount"] !== true) {
         console.log('saved')
-        $('.save').hide().replaceWith(`<button type="button" id="save${id}" onclick="save(this.id)" class="save btn btn-outline-info btn-sm">Unsave</button>`)
+        $('.save').hide().replaceWith(`<button type="button" id="save${id}" onclick="save(this.id.slice(4, this.id.length))" class="save btn btn-outline-info btn-sm">Unsave</button>`)
     } else
      {       console.log('unsaved')   
-      $('.save').hide().replaceWith(`<button type="button" id="save${id}" onclick="save(this.id)" class="save btn btn-outline-info btn-sm">Save</button>`)
+      $('.save').hide().replaceWith(`<button type="button" id="save${id}" onclick="save(this.id.slice(4, this.id.length))" class="save btn btn-outline-info btn-sm">Save</button>`)
        
       } 
   
