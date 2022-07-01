@@ -35,12 +35,12 @@ function save(id) {
       success: function(data) {
       console.log(data) // check out how data is structured
       
-      if (data["ifsaved"]["scount"] === true) {
-        console.log('fired')
-        $('.save').hide().replaceWith(`<button type="button" id="save${id}" class="save btn btn-outline-info btn-sm">Unsave</button>`)
+      if (data["ifsaved"]["scount"] !== true) {
+        console.log('saved')
+        $('.save').hide().replaceWith(`<button type="button" id="save${id}" onclick="save(this.id)" class="save btn btn-outline-info btn-sm">Unsave</button>`)
     } else
-     {       console.log('fired')   
-      $('.save').hide().replaceWith(`<button type="button" id="save${id}" class="save btn btn-outline-info btn-sm">Save</button>`)
+     {       console.log('unsaved')   
+      $('.save').hide().replaceWith(`<button type="button" id="save${id}" onclick="save(this.id)" class="save btn btn-outline-info btn-sm">Save</button>`)
        
       } 
   
