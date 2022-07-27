@@ -112,9 +112,9 @@ WSGI_APPLICATION = 'swim.wsgi.application'
 # print(csrf_url)
 
 
-CSRF_TRUSTED_ORIGINS = [
- csrf_url
-]
+# CSRF_TRUSTED_ORIGINS = [
+#  csrf_url
+# ]
 
 
 # Database
