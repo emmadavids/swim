@@ -107,13 +107,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'swim.wsgi.application'
 
-url_to_prefix = (os.getenv('GITPOD_WORKSPACE_URL'))
-csrf_url = url_to_prefix[:8] + '8000-' + url_to_prefix[8:]
-print(csrf_url)
+# url_to_prefix = (os.getenv('GITPOD_WORKSPACE_URL'))
+# csrf_url = url_to_prefix[:8] + '8000-' + url_to_prefix[8:]
+# print(csrf_url)
 
 
 CSRF_TRUSTED_ORIGINS = [
-'https://8000-emmadavids-swim-ak9razkewku.ws-eu47.gitpod.io', csrf_url
+ csrf_url
 ]
 
 
