@@ -1,1 +1,1 @@
-web: gunicorn swim.wsgi
+web: gunicorn catalog.wsgi
