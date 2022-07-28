@@ -38,7 +38,7 @@ CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
-    'catalog',
+    # 'catalog',
     'swim',
     'django.contrib.auth',
     'django.contrib.contenttypes',
