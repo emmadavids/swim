@@ -39,6 +39,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     'catalog',
+    'swim',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
