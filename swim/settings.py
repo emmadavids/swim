@@ -55,7 +55,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTH_USER_MODEL = 'catalog.User'
 
-# LOGIN_REDIRECT_URL = "/login/"
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = 'index'
@@ -108,15 +107,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'swim.wsgi.application'
 
-# url_to_prefix = (os.getenv('GITPOD_WORKSPACE_URL'))
-# csrf_url = url_to_prefix[:8] + '8000-' + url_to_prefix[8:]
-# print(csrf_url)
-
-
-# CSRF_TRUSTED_ORIGINS = [
-#  csrf_url
-# ]
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -164,10 +154,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/catalog/static/'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'swim/catalog/static')
-# STATIC_URL = '/catalog/static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
