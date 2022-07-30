@@ -168,4 +168,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_URL = '/photos/'
 
-MEDIA_ROOT = BASE_DIR / 'swim/photos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'swim/photos/')
