@@ -156,7 +156,7 @@ USE_TZ = True
 
 STATIC_URL = '/catalog/static/'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(BASE_DIR, 'swim/catalog/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'catalog/static')
 
 
 # Default primary key field type
