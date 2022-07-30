@@ -285,7 +285,7 @@ a {
       display: none;
   }
   body {
-    margin-left: 20px;
+    margin-left: 0px;
     margin-right: 20px;
   }
   .smallscreen {
@@ -303,6 +303,10 @@ a {
     z-index: 10;
     position: relative !important;
   }
+
+ .navbt {
+  background-color: #0099ff!important;
+ } 
 
 .map {
   height: 240px;
@@ -324,7 +328,7 @@ a {
   display: none;
 }
 .card {
-  margin-left: 24px;
+  margin-left: 0px;
 }
 
 }
