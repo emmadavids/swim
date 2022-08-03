@@ -298,7 +298,7 @@ a {
 
   .container {
     position: absolute;
-    top: 0;
+    top: 20px;
     left: 0;
     max-width: 1000px;
   }
@@ -310,7 +310,7 @@ a {
  .card-deck {
   margin-left: 30px;
  } 
- 
+
   .navbar {
     background-color: #0099ff!important;
     font-size: large !important;
