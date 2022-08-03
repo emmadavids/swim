@@ -264,8 +264,8 @@ a {
 
     .container {
       position: absolute;
-      top: 15px;
-      left: 100px;
+      top: 0;
+      left: 200px;
       max-width: 1000px;
     }
     .col-md {
@@ -296,6 +296,21 @@ a {
     left: 0;
   }
 
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 1000px;
+  }
+
+  .intro {
+    margin-left: 38px;
+  }
+
+ .card-deck {
+  margin-left: 30px;
+ } 
+ 
   .navbar {
     background-color: #0099ff!important;
     font-size: large !important;
@@ -304,7 +319,7 @@ a {
     position: relative !important;
   }
 
-  #navbt {
+ #navbt {
   background-color: #0099ff!important;
  } 
 
