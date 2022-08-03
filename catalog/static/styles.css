@@ -264,8 +264,8 @@ a {
 
     .container {
       position: absolute;
-      top: 0;
-      left: 200px;
+      top: 15px;
+      left: 100px;
       max-width: 1000px;
     }
     .col-md {
@@ -304,7 +304,7 @@ a {
     position: relative !important;
   }
 
- .navbt {
+  #navbt {
   background-color: #0099ff!important;
  } 
 
