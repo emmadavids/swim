@@ -298,7 +298,7 @@ a {
 
   .container {
     position: absolute;
-    top: 20px;
+    top: 25px;
     left: 0;
     max-width: 1000px;
   }
@@ -325,6 +325,7 @@ a {
 
 .map {
   height: 240px;
+  margin-bottom: 20px;
 
 }
 
