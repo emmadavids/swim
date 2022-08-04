@@ -32,42 +32,6 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 
 <br><br><br>
 
-<div id="carouselExampleIndicators" class="block col-md carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    {% for obj in phot %}
-    {% if forloop.first %}
-    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class="active"></li>
-    {% else %}
-    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}"></li>
-    {% endif %}
-    {% endfor %}
-  </ol>
-  <div class="carousel-inner">
-    {% for obj in phot %}
-            {% if forloop.first %}
-    <div class="carousel-item active">
-      {% else %}
-    
-    <div class="carousel-item">
-      {% endif %}
-      <img class="d-block w-100" src="../../{{obj.image}}" alt="slide">
-    <center> <h5>{{obj.title}}</h5>
-      <p><i>{{obj.description}}</i> <br><small>Submitted by {{obj.submitter}} on {{obj.created}}</small></p></center> 
-    </div>
-  
-    {% endfor %} 
-    </div>
-  
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-     </div>
 
 <div class="row">
   <div class="col-md">
