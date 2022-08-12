@@ -110,7 +110,6 @@ def register(request):
 
 def update_water_quality(request, wqid):
     url = 'https://environment.data.gov.uk/doc/bathing-water/{0}.json'.format(wqid)
-    print("this is wqid", wqid)
     swim = SwimSpot.objects.get(wq_id=wqid)
     response = requests.get(url)
     if response.status_code != 200:
@@ -132,16 +131,13 @@ def get_swim_spot(request, id):
     swim = SwimSpot.objects.filter(id=id)
     swims = swim.values_list('id', 'name', 'description', 'toilets', 'cafe', 'water_quality', 'distance_suitable')
     water_quality = swim.values_list('wq_id', flat=True)
-    print("water quality", water_quality[0])
     update_water_quality(request, water_quality[0])
     commentos = Comment.objects.filter(swim_id=id).order_by('-date_added')
     phot = Photo.objects.filter(swim_id=id)
     location = list(Location.objects.filter(swimspot=id).order_by('name').values())
     location_json = json.dumps(location)
     swimmo = SavedSwims.objects.filter(user=request.user).filter(swim_id=id)
-    print("swimmo", swimmo)
     saved = swimmo.values_list('swim_id')
-    print("saved zero", saved)
     return render(request, "swimspot.html", {
         "phot": phot,
         "swims": swims,
@@ -175,7 +171,7 @@ def add_listing(request):
         s = SwimForm(request.POST)
         swimmy = SwimSpot()
         if s.is_valid():
-            swimmy.added_by = request.user #is there a need to store this data?
+            swimmy.added_by = request.user
             swimmy.name = s.cleaned_data.get('name')
             swimmy.description = s.cleaned_data.get('description')
             swimmy.toilets = s.cleaned_data.get('toilets')
@@ -205,11 +201,11 @@ def save_swim(request, id):
             swi.user = request.user
             swi.swim_id = this
             swi.save()
-        return JsonResponse({"ifsaved": ifsaved}, status=200)  #this is supposed to serialise the boolean and send it to the page 
+        return JsonResponse({"ifsaved": ifsaved}, status=200)  
 
 @login_required()
 def get_saved_swims(request, id):
-    swimmo = SavedSwims.objects.filter(user=request.user) #change this to take in a parameter that reflects users id
+    swimmo = SavedSwims.objects.filter(user=request.user) 
     saved_swims = swimmo.values_list('user', 'swim_id')
 
     
@@ -276,8 +272,7 @@ def get_profile(request, id):
         if request.user == u1:
             return edit_profile(request, id)   
         else:
-            return render(request, 'notfound.html')  
-    print(saved_swims)         
+            return render(request, 'notfound.html')       
     return render(request, 'profilepage.html', {'prof': prof,
     'form': form,
     'photo': photo,
@@ -320,8 +315,8 @@ def all_photos(request, id):
     })
 
 def add_profile_pic(request, id):
-    u1 = User.objects.get(id=id) # retrieves user model 
-    id = u1.id # gets user id from above model
+    u1 = User.objects.get(id=id)
+    id = u1.id 
     
     beb = str(id)
     url = '../profile/' + beb
