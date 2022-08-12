@@ -3,18 +3,19 @@
 {% block content %}
  
  <div class="container">
-<div class="searchform">
+<div class="intro">
   Search for a swim: <br>
   <form action="{% url 'search' %}" method="POST">
     {% csrf_token %} 
     <input type="text" name="name">
     <input class="btn btn-outline-info" type="submit" name="submit" value="Search">
-</form>
+</form><br><br>
+Results will appear below
 </div>
 <br><br>
 
 {% if not results %}
-Results will appear here 
+
 {% endif %}
 
 {% for i in results %}

@@ -18,7 +18,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 {% if user.is_authenticated %} 
 
 <button type="button" class="btn btn-outline-info btn-sm"><a href="{% url 'addphoto' i.0 %}">Add a Photo</a></button>     
-<div class="save" id="save{{i.0}}">
+<div class="save" id="save{{i.0}}"><br>
 {% if i.0 in saved.0 %}
 <button type="button" id="save{{i.0}}" onclick="save(this.id)" class="savo btn btn-outline-info btn-sm">Unsave</button>
 {% else %}
@@ -31,7 +31,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
 </div>
 
 <br><br><br>
-{% load static %}
+{% load cloudinary %}
 <div id="carouselExampleIndicators" class="block col-md carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     {% for obj in phot %}
@@ -51,14 +51,7 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
     <div class="carousel-item">
       {% endif %}
       
-      <img class="d-block w-100" src="{{ MEDIA_URL }}/{{obj.image}}" alt="slide">
-
-      
-    <center> <h5>{{obj.title}}</h5>
-      <p><i>{{obj.description}}</i> <br><small>Submitted by {{obj.submitter}} on {{obj.created}}</small></p></center> 
-    </div>
-  
-    {% endfor %} 
+    
     </div>
   
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -69,6 +62,13 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+  {% cloudinary obj.image quality="100" %}
+      
+  <center> 
+    <p><i>{{obj.description}}</i> <br><small>Submitted by {{obj.submitter}} on {{obj.created}}</small></p></center> 
+  </div>
+
+  {% endfor %} 
 </div>
      </div>
 
@@ -95,10 +95,10 @@ Water quality data provided by the Environment Agency.  Licensed under the Open 
         var popupOffsets = {
         top: [0, 0],
         bottom: [0, -70],
-        'bottom-right': [0, -70],
-        'bottom-left': [0, -70],
-        left: [25, -35],
-        right: [-25, -35]
+        'bottom-right': [0, -10],
+        'bottom-left': [0, -10],
+        left: [0, 0],
+        right: [0, 0]
       } 
         var popup = new tt.Popup({offset: popupOffsets}).setHTML(`${loc}`);
 marker.setPopup(popup).togglePopup();

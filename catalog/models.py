@@ -7,6 +7,8 @@ from datetime import datetime, timezone, timedelta
 from django.contrib.auth import get_user_model
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit
+from cloudinary.models import CloudinaryField
+
 
 
 class User(AbstractUser):
@@ -80,10 +82,9 @@ class Photo(models.Model):
         on_delete=models.CASCADE,
         related_name="swimspot"
     ) 
-    title = models.CharField(max_length=45)
     description = models.CharField(max_length=250) 
     created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='photos/')
+    image = CloudinaryField('image')
     submitter = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
 
@@ -94,7 +95,7 @@ class Photo(models.Model):
 class PhotoForm(ModelForm):
     class Meta:
         model = Photo
-        fields = ['title', 'description', 'image']
+        fields = ['description', 'image']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -155,7 +156,7 @@ class ProfilePic(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    image = models.ImageField(upload_to='photos/')
+    image = CloudinaryField('image')
 
 
 class PicForm(ModelForm):

@@ -320,10 +320,13 @@ def all_photos(request, id):
     })
 
 def add_profile_pic(request, id):
-    u1 = User.objects.get(id=id)
-    id = u1.id
+    u1 = User.objects.get(id=id) # retrieves user model 
+    id = u1.id # gets user id from above model
+    
     beb = str(id)
     url = '../profile/' + beb
+    
+
     if request.method == 'POST':   
         pic_f = PicForm(request.POST, request.FILES)   
         try: 

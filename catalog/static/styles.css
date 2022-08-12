@@ -11,7 +11,7 @@ body {
   
 
   button, .clearablefileinput {
-    background-color: #e1ecf4 !important;
+    background-color: white !important;
     border-radius: 3px;
     border: 1px solid #7aa7c7;
     box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
@@ -35,11 +35,15 @@ body {
     vertical-align: baseline;
     white-space: nowrap;
   }
+
+  .mapboxgl-popup-close-button {
+    background-color: white!important; 
+  }
   
   button:hover,
   button:focus {
     background-color: #b3d3ea;
-    color: #2c5777;
+    color: #2c5777 !important;
   }
   
   button:focus {
@@ -169,6 +173,7 @@ a {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-left: 20px;
   margin-right: 45px;
+
   
 }
 
@@ -185,27 +190,22 @@ a {
     right: 85px;
   }
 
-  #ppic {
-    /* border: 2px solid aquamarine; */
-    max-height: 250px;
-    max-width: 350px;
-  }
+
 
 .sw {
-  margin-left: -180px;
+  margin-top: -160px !important;
+  margin-left: 10px !important;
+  
+  
 
 } 
   
 .savo {
   margin-left: 10px;
+
 }
 
-.searchform {
-  padding: 50px;
-  background: seashell;
-  margin-right: 300px;
-  border-radius: 8px;
-}
+
 
 .carousel {
   margin-top: 10px;
@@ -227,6 +227,7 @@ a {
   }
  .pfbt {
  color: #2c5777;
+ 
  }
 
   #map {
@@ -295,12 +296,21 @@ a {
     top: 0;
     left: 0;
   }
-
+  
+  .swimz {
+    width: 95% !important;
+    margin-left:24px
+  }
+ 
   .container {
     position: absolute;
     top: 25px;
     left: 0;
     max-width: 1000px;
+  }
+
+  .info {
+    width: 95%;
   }
 
   .intro {
@@ -311,6 +321,10 @@ a {
   margin-left: 30px;
  } 
 
+ .comments {
+  margin-top: 20px;
+  margin-left: 0px;
+ }
   .navbar {
     background-color: #0099ff!important;
     font-size: large !important;
@@ -344,8 +358,10 @@ a {
   display: none;
 }
 .card {
-  margin-left: 0px;
+  margin-left: 12px;
 }
+
+
 
 }
   
